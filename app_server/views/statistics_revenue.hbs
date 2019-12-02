@@ -1,0 +1,190 @@
+<div id="statistics_revenue-wrapper">
+    <div class="pro-head">
+        <h2>Chọn thời gian</h2>
+    </div>
+    <form id="revenue_filter_form" class="form-inline" action="/statistics_revenue" action="post">
+            <div class="form-group">
+                <label for="revenue_day" class="control-label">Ngày: </label>
+                <input type="number" class="form-control" min="1" max="31" step="1" value="1"/>
+            </div>
+            <div class="form-group">
+                <label for="revenue_month" class="control-label">Tháng: </label>
+                <input type="number" class="form-control" min="1" max="12" step="1" value="1"/>
+            </div>
+            <div class="form-group">
+                <label for="revenue_year" class="control-label">Năm: </label>
+                <input type="number" class="form-control" min="1900" step="1" value="2019"/>
+            </div>
+            <div class="form-group">
+                <label for="revenue_week" class="control-label">Tuần: </label>
+                <input type="number" class="form-control"min="1" max="52" step="1" value="1"/>
+            </div>
+            <div class="form-group">
+                <label for="revenue_quarter" class="control-label">Quý: </label>
+                <input type="number" class="form-control" min="1" max="4" step="1" value="1"/>
+            </div>
+            <button type="submit" class="btn btn-danger" id="revenueBtn">Áp dụng</button>
+    </form>
+    <div class="chart-main-block">
+        <div class="chart-first-line">
+            <div class="col-md-6 chart-blo-1">
+                <h2 class="text-success">Ngày 1/1/2019</h2>
+                <div class="dygno">
+                    <canvas id="doughnut" height="300" width="470" style="width: 470px; height: 300px;"></canvas>
+                    <script>
+                        var doughnutData = [
+                            {
+                                value: 30,
+                                color:"#337AB7"
+                            },
+                            {
+                                value : 50,
+                                color : "#929292"
+                            },
+                            {
+                                value : 100,
+                                color : "#FC8213"
+                            },
+                            {
+                                value : 40,
+                                color : "#68AE00"
+                            },
+                        ];
+                        new Chart(document.getElementById("doughnut").getContext("2d")).Doughnut(doughnutData);
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6 chart-blo-1">
+                <h2 class="text-success">Tháng 1/2019</h2>
+                <div class="line-chart">
+                    <canvas id="line" height="300" width="400" style="width: 400px; height: 300px;"> </canvas>
+                    <script>
+                        var lineChartData = {
+                            labels : ["","","","","","",""],
+                            datasets : [
+                                {
+                                    fillColor : "rgba(252, 130, 19, 0.74)",
+                                    strokeColor : "#FC8213",
+                                    pointColor : "#FC8213",
+                                    pointStrokeColor : "#fff",
+                                    data : [65,59,90,81,56,55,40]
+                                },
+                                {
+                                    fillColor : "rgba(51, 122, 183, 0.71)",
+                                    strokeColor : "#337AB7",
+                                    pointColor : "#337AB7",
+                                    pointStrokeColor : "#fff",
+                                    data : [28,48,40,19,96,27,100]
+                                }
+                            ]
+
+                        };
+                        new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="chart-second-line">
+            <div class="col-md-6 chart-blo-1">
+                <h2 class="text-success">Năm 2019</h2>
+                <div class="polararea">
+                    <canvas id="polarArea" height="300" width="300" style="width: 300px; height: 300px;"></canvas>
+                    <script>
+                        var chartData = [
+                            {
+                                value : Math.random(),
+                                color: "#FC8213"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#68AE00"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#337AB7"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#FC8213"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#68AE00"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#337AB7"
+                            }
+                        ];
+                        new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chartData);
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-6 chart-blo-1">
+                <h2 class="text-success">Tuần 1 2019</h2>
+                <div class="chart-other">
+                    <canvas id="pie" height="315" width="470" style="width: 470px; height: 315px;"></canvas>
+                    <script>
+                        var pieData = [
+                            {
+                                value: 30,
+                                color:"#337AB7"
+                            },
+                            {
+                                value : 50,
+                                color : "#FC8213"
+                            },
+                            {
+                                value : 100,
+                                color : "#8BC34A"
+                            }
+
+                        ];
+                        new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="chart-third-line">
+            <div class="col-md-6 chart-blo-1">
+                <h2 class="text-success">Quý 1 2019</h2>
+                <div class="polararea">
+                    <canvas id="polarArea" height="300" width="300" style="width: 300px; height: 300px;"></canvas>
+                    <script>
+                        var chartData = [
+                            {
+                                value : Math.random(),
+                                color: "#FC8213"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#68AE00"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#337AB7"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#FC8213"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#68AE00"
+                            },
+                            {
+                                value : Math.random(),
+                                color: "#337AB7"
+                            }
+                        ];
+                        new Chart(document.getElementById("polarArea").getContext("2d")).PolarArea(chartData);
+                    </script>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

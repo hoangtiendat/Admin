@@ -1,0 +1,224 @@
+<div class="order-wrapper">
+    <div class="pro-head">
+        <h2>Quản lý đơn đặt hàng</h2>
+    </div>
+    <div class="table-wrapper table-responsive">
+        <table class="table">
+            <thead>
+            <tr class="success text-center">
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Người mua</th>
+                <th scope="col">Cửa hàng</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Địa chỉ giao hàng</th>
+                <th scope="col">Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>001</td>
+                    <td>Iphone 11 Pro Max</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn A"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn A</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng A"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng A</a>
+                        </form>
+                    </td>
+                    <td>35.000.000 VNĐ</td>
+                    <td>228 Seoul Hàn Quốc</td>
+                    <td class="text-warning">Đang giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>002</td>
+                    <td>Iphone 7 Plus Red</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn B"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn B</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng C"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng C</a>
+                        </form>
+                    </td>
+                    <td>15.000.000 VNĐ</td>
+                    <td>227 Nguyễn Văn Cừ Q5 TP HCM</td>
+                    <td class="text-warning">Đang giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>003</td>
+                    <td>Samsung Galaxy Note 10 Plus</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn C"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn C</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng E"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng E</a>
+                        </form>
+                    </td>
+                    <td>25.500.000 VNĐ</td>
+                    <td>123 Nguyễn Văn Cừ Q5 TP HCM</td>
+                    <td class="text-warning">Đang giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>004</td>
+                    <td>Dell XPS 13''</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn D"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn D</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng A"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng A</a>
+                        </form>
+                    </td>
+                    <td>45.000.000 VNĐ</td>
+                    <td>123 Ba Vì Hà Nội</td>
+                    <td class="text-warning">Đang giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>005</td>
+                    <td>Honda SH Mode</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn E"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn E</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng H"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng H</a>
+                        </form>
+                    </td>
+                    <td>40.700.000 VNĐ</td>
+                    <td>115 Lý Thái Tổ Q5 TP HCM</td>
+                    <td class="text-success">Đã giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>006</td>
+                    <td>Iphone 11 Pro Max</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn F"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn F</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng D"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng D</a>
+                        </form>
+                    </td>
+                    <td>35.000.000 VNĐ</td>
+                    <td>228 Seoul Hàn Quốc</td>
+                    <td class="text-success">Đã giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>007</td>
+                    <td>Iphone 7 Plus Red</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn G"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn G</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng J"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng J</a>
+                        </form>
+                    </td>
+                    <td>15.000.000 VNĐ</td>
+                    <td>227 Nguyễn Văn Cừ Q5 TP HCM</td>
+                    <td class="text-success">Đã giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>008</td>
+                    <td>Samsung Galaxy Note 10 Plus</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn H"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn H</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng H"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng H</a>
+                        </form>
+                    </td>
+                    <td>25.500.000 VNĐ</td>
+                    <td>123 Nguyễn Văn Cừ Q5 TP HCM</td>
+                    <td class="text-success">Đã giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>009</td>
+                    <td>Dell XPS 13''</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn I"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn I</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng K"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng K</a>
+                        </form>
+                    </td>
+                    <td>45.000.000 VNĐ</td>
+                    <td>123 Ba Vì Hà Nội</td>
+                    <td class="text-danger">Chưa giao</td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>010</td>
+                    <td>Honda SH Mode</td>
+                    <td>
+                        <form action="/user_detail" method="post">
+                            <input type="hidden" name="shop" value="Nguyễn Văn J"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Nguyễn Văn J</a>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/shop_detail" method="post">
+                            <input type="hidden" name="shop" value="Cửa hàng A"/>
+                            <a href="#" onclick="this.parentNode.submit(); return false;" class="text-success">Cửa hàng A</a>
+                        </form>
+                    </td>
+                    <td>40.700.000 VNĐ</td>
+                    <td>115 Lý Thái Tổ Q5 TP HCM</td>
+                    <td class="text-danger">Chưa giao</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="clearfix"> </div>
+</div>
