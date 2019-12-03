@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// var helpers = require('handlebars-helpers');
 const expressSession = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
@@ -12,12 +13,23 @@ require('./app_server/models/db');
 var indexRouter = require('./app_server/routers/index');
 var usersRouter = require('./app_server/routers/users');
 
-
 var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
 
+
+var hbs = require('hbs');
+hbs.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
+var handlebarsHelpers = require('handlebars-helpers');
+var helpers =  handlebarsHelpers();
+// app.helper({'is': helpers.is});
+hbs.registerHelper("is", helpers.is);
+hbs.registerHelper("compare", helpers.compare);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({
     extended: true

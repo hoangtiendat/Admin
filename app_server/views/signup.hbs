@@ -21,49 +21,54 @@
 </head>
 <body>
     <div class="bg-image"></div>
-    <div class="container">
+    <div class="container signup-container">
         <!-- modals -->
         <!-- log in -->
-        <div class="show" id="loginModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="show mt-0" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-center">Đăng nhập</h5>
+                        <h5 class="modal-title text-center">Thêm tài khoản Admin</h5>
                     </div>
                     <div class="modal-body">
-                        <form name="loginForm" action="/login" method="post">
-                            {{#if signup_success_message}}
-                                <div id="signup_success_message" class="alert alert-success alert-message" role="alert">
-                                    {{signup_success_message}}
+                        <form name="signupForm" action="/signup" method="post">
+                            {{#if error_message}}
+                                <div id="error_message_alert" class="alert alert-danger alert-message" role="alert">
+                                    {{error_message}}
                                 </div>
                             {{/if}}
-                            
                             <div class="form-group">
-                                <label class="col-form-label">Tài khoản</label>
-                                <input type="text" class="form-control" placeholder="Tài khoản" name="username" required="">
+                                <label class="col-form-label">Tên tài khoản</label>
+                                <input type="text" class="form-control" placeholder=" " name="username" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Email</label>
+                                <input type="email" class="form-control" placeholder=" " name="email" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Mật khẩu</label>
-                                <input type="password" class="form-control" placeholder="Mật khẩu" name="password" required="">
+                                <input type="password" class="form-control" placeholder=" " name="password" id="password1" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Xác nhận mật khẩu</label>
+                                <input type="password" class="form-control" placeholder=" " name="re-password" id="password2" required="">
                             </div>
                             <div class="right-w3l">
-                                <input id="loginBtn" type="submit" class="form-control" value="Đăng nhập">
+                                <input id="signupBtn" type="submit" class="form-control" value="Thêm">
                             </div>
                             <div class="sub-w3l">
-                                <div class="custom-control custom-checkbox mr-sm-2 align-right">
-                                    <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                    <label class="custom-control-label" for="customControlAutosizing">Duy trì đăng nhập</label>
-                                    <a href="" id="forgetPasswordBtn" class="float-right text-right dont-do" data-toggle="modal" data-target="#forgetPasswordModal">
-                                        Quên mật khẩu</a>
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" name="agree" id="signupCb">
+                                    <label class="custom-control-label" for="signupCb">Tôi đồng ý điều khoản</label>
                                 </div>
                             </div>
+                            <a class="backHomeLink" href="/"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div id="loading" class="sk-fading-circle" style="display: none;">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
@@ -82,6 +87,9 @@
     <!-- jquery -->
     <script type="text/javascript" src="javascripts/jquery-2.2.3.min.js"></script>
     <!-- //jquery -->
+    <!-- jquery validation-->
+    <script type="text/javascript" src="javascripts/jquery.validate.min.js"></script>
+    <!-- //jquery validation-->
     <!-- account -->
     <script type="text/javascript" src="javascripts/account.js"></script>
     <!-- end account -->

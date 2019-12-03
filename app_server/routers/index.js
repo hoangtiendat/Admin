@@ -41,5 +41,8 @@ router.post('/login', function(req, res, next){
 });
 
 router.get('/logout', accountCtrl.logout);
+
+router.get('/addAdmin', accountCtrl.signupPage);
+router.post('/addAdmin', accountCtrl.signup);
     
 module.exports = router;

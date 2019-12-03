@@ -262,7 +262,14 @@
                                                 <span class="prfil-img"><img src="images/p5.png" alt=""> </span>
                                                 <div class="user-name">
                                                     <p> {{user.username}}</p>
-                                                    <span>Quản trị viện</span>
+                                                    {{#is user.type 0}}
+                                                        <span>Super Admin</span>
+                                                    {{/is}}
+
+                                                    {{#compare user.type ">=" 1}}
+                                                        <span>Admin</span>
+                                                    {{/compare}}
+                                                    
                                                 </div>
                                                 <i class="fa fa-angle-down lnr"></i>
                                                 <i class="fa fa-angle-up lnr"></i>
@@ -327,6 +334,9 @@
                                 <li id="menu-academico-boletim" ><a href="statistics_revenue">Doanh số</a></li>
                             </ul>
                         </li>
+                        {{#is user.type 0}}
+                            <li><a href="addAdmin"><i class="fa fa-plus"></i><span>Add Admin</span></a></li>
+                        {{/is}} 
                     </ul>
                 </div>
             </div>
@@ -359,7 +369,6 @@
         <!--//scrolling js-->
         <script src="javascripts/bootstrap.js"> </script>
         <!-- mother grid end here-->
-
         <script src="javascripts/statistics.js"> </script>
     </body>
 </html>

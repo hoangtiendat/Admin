@@ -7,7 +7,7 @@ const User = mongoose.model('User');
 passport.use(new LocalStrategy(
     {passReqToCallback : true},
     function(req, username, password, done) {
-        User.findOne({ username: username}, function(err, user) {
+        User.findOne({ username: username, type: {$lt: 2}}, function(err, user) {
             if (err) { return done(err); }
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });

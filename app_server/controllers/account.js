@@ -20,7 +20,7 @@ const logout = (req, res) => {
 }
 const signupPage = (req, res) => {
     res.render('signup', {
-        title: 'Đăng ký',
+        title: 'Thêm Admin',
         layout: false ,
     });
 }
@@ -28,7 +28,7 @@ const signup =  async (req, res) => {
     let users = await User.find({username: req.body.username}).exec();
     if (users.length > 0){
         res.render('signup', {
-            title: 'Đăng ký',
+            title: 'Thêm Admin',
             layout: false,
             error_message: "Tên đăng nhập đã tồn tại !!!"
         });
@@ -37,7 +37,8 @@ const signup =  async (req, res) => {
             const newUser = new User({
                 username: req.body.username,
                 email: req.body.email,
-                password: hash
+                password: hash,
+                type: 1
             });
             newUser.save((err) => {
                 if (err){
@@ -47,11 +48,7 @@ const signup =  async (req, res) => {
                         error_message: "Đăng ký thất bại !!!"
                     });
                 } else {
-                    res.render('login', {
-                        title: 'Đăng nhập',
-                        layout: false,
-                        signup_success_message: "Đăng ký tài khoản thành công"
-                    });
+                    res.redirect('/');
                 }
             })
         })

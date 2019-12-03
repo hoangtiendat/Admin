@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     city: Number,
     phone: String,
     avatar: String,
-    createdDate: Date
+    createdDate: Date,
+    type: Number
 });
 
 userSchema.index({coords: '2dsphere'});
