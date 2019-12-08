@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = mongoose.model('User');
 
 passport.use(new LocalStrategy(
@@ -25,11 +25,11 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.id)
+    done(null, user.userId)
 })
 
 passport.deserializeUser(function(id, done) {
-    User.findOne({id: id}, function(err, user) {
+    User.findOne({userId: id}, function(err, user) {
         done(err, user);
     });
 });

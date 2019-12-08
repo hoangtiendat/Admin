@@ -2,7 +2,6 @@
     const $loginForm = $(document.loginForm);
     const $signupForm = $(document.signupForm);
     const $alertMsg = $('.alert-message');
-    const $submitBtns = $('.submitBtn');
     const alertTimeout = 3000;
 
     if ($alertMsg.css('display') !== 'none'){
@@ -10,7 +9,13 @@
             $alertMsg.css('display', 'none');
         }, alertTimeout)
     }
+
+    if ($loginForm.length > 0){
+        $(document.loginForm.username).focus();
+    }
+
     if ($signupForm.length > 0){
+        $(document.signupForm.username).focus();
         $signupForm .validate({
             rules: {
                 username: {
@@ -45,6 +50,7 @@
                     minlength: "Mật khẩu phải có trên 6 ký tự"
                 },
                 "re-password": {
+                    required: "Xác nhận mật khẩu không trùng khớp",
                     equalTo: "Xác nhận mật khẩu không trùng khớp"
                 },
                 agree: {

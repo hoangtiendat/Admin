@@ -1,21 +1,33 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const User = mongoose.model('User');
+const bcrypt = require('bcryptjs');
+const constant = require('../Utils/constant');
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    firstName: String,
-    lastName: String,
-    email: String,
-    birthDate: Date,
-    address: String,
-    city: Number,
-    phone: String,
-    avatar: String,
-    createdDate: Date,
-    type: Number
-});
-
-userSchema.index({coords: '2dsphere'});
-userSchema.plugin(AutoIncrement, {inc_field: 'id'});
-mongoose.model('User', userSchema);
+module.exports = {
+    checkUsername(username){
+        return User.findOne({username: username}).exec();
+    },
+    addUser(username, email, password){
+        return new Promise((resolve, reject) => {
+            bcrypt.hash(password, constant.SALT_ROUNDS, (err,   hash) => {
+                const newUser = new User({
+                    username: username,
+                    email: email,
+                    password: hash,
+                    type: 1
+                });
+                try {
+                    newUser.save(function (err) {
+                        if (err){
+                            resolve(false);
+                        } else {
+                            resolve(true);
+                        }
+                    });
+                } catch(err) {
+                    console.log('error' + err);
+                }
+            })
+        })
+    }
+};

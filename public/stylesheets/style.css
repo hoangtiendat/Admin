@@ -4763,3 +4763,60 @@ ul.dropdown-menu {
 .table-borderless > thead > tr > th {
     border: none;
 }
+body a {
+    text-decoration: none;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+input[type="button"], input[type="submit"] {
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+/*Modals Style*/
+.modal-content {
+    border: 10px solid rgba(244, 92, 93, 0.82);
+}
+.modal-title {
+    font-size: 30px;
+    color: #0879c9;
+}
+label.col-form-label {
+    letter-spacing: 1px;
+    font-size: 15px;
+    color: #000;
+}
+.form-control {
+    border-radius: 0;
+}
+.right-w3l input[type="submit"] {
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    background: #0879c9;
+    color: #fff;
+    margin: 2vw 0 1.5vw;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    transition: 0.5s all;
+}
+
+
+/*End Modals Style*/
+
+/*Responsive*/
+@media screen and (min-width: 768px) {
+    .modal-dialog {
+        width: 500px;
+        margin: 30px auto;
+    }
+}
+/*End Responsive*/

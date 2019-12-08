@@ -1,3 +1,8 @@
+{{#if success_message}}
+    <div id="success_message_alert" class="alert alert-success alert-message" role="alert">
+        {{success_message}}
+    </div>
+{{/if}}
 <div class="market-updates">
     <div class="col-md-4 market-update-gd">
         <div class="market-update-block clr-block-1">
@@ -254,3 +259,12 @@
         <div class="clearfix"> </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    const $alertMsg = $('.alert-message')
+    if ($alertMsg.css('display') !== 'none'){
+        setTimeout(()=>{
+            $alertMsg.css('display', 'none');
+        }, 3000)
+    }
+</script>

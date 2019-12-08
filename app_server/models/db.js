@@ -55,5 +55,4 @@ process.on('SIGTERM', () => {
 
 connect();
 
-require('./product');
-require('./user');
+require('./mongoose_schema');

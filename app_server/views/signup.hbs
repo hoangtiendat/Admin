@@ -31,7 +31,7 @@
                         <h5 class="modal-title text-center">Thêm tài khoản Admin</h5>
                     </div>
                     <div class="modal-body">
-                        <form name="signupForm" action="/signup" method="post">
+                        <form name="signupForm" action="/addAdmin" method="post">
                             {{#if error_message}}
                                 <div id="error_message_alert" class="alert alert-danger alert-message" role="alert">
                                     {{error_message}}
@@ -39,19 +39,19 @@
                             {{/if}}
                             <div class="form-group">
                                 <label class="col-form-label">Tên tài khoản</label>
-                                <input type="text" class="form-control" placeholder=" " name="username" required="">
+                                <input type="text" class="form-control" placeholder="Tên tài khoản" name="username" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Email</label>
-                                <input type="email" class="form-control" placeholder=" " name="email" required="">
+                                <input type="email" class="form-control" placeholder="Email" name="email" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Mật khẩu</label>
-                                <input type="password" class="form-control" placeholder=" " name="password" id="password1" required="">
+                                <input type="password" class="form-control" placeholder="Mật khẩu" name="password" id="password1" required="">
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Xác nhận mật khẩu</label>
-                                <input type="password" class="form-control" placeholder=" " name="re-password" id="password2" required="">
+                                <input type="password" class="form-control" placeholder="Xác nhận mật khẩu" name="re-password" id="password2" required="">
                             </div>
                             <div class="right-w3l">
                                 <input id="signupBtn" type="submit" class="form-control" value="Thêm">
@@ -62,7 +62,6 @@
                                     <label class="custom-control-label" for="signupCb">Tôi đồng ý điều khoản</label>
                                 </div>
                             </div>
-                            <a class="backHomeLink" href="/"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
                         </form>
                     </div>
                 </div>

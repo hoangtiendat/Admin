@@ -25,3 +25,7 @@
     top: 0;
     text-align: center;
 }
+#loginBtn {
+    padding-top: 10px;
+    padding-bottom: 25px;
+}

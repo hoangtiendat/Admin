@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const bcrypt = require('bcrypt');
-const SALT_ROUNDS = 15;
+const User = require('../models/user');
 
 const loginPage = (req, res) => {
     res.render('login', {
@@ -25,33 +23,30 @@ const signupPage = (req, res) => {
     });
 }
 const signup =  async (req, res) => {
-    let users = await User.find({username: req.body.username}).exec();
-    if (users.length > 0){
+    let user = await User.checkUsername(req.body.username);
+    if (user){
         res.render('signup', {
             title: 'Thêm Admin',
             layout: false,
             error_message: "Tên đăng nhập đã tồn tại !!!"
         });
     } else {
-        bcrypt.hash(req.body.password, SALT_ROUNDS, (err,   hash) => {
-            const newUser = new User({
-                username: req.body.username,
-                email: req.body.email,
-                password: hash,
-                type: 1
+        const result = await User.addUser(req.body.username, req.body.email, req.body.password);
+        if (result){
+            //Success
+            res.render('index', {
+                title: 'Trang chủ',
+                user: req.user,
+                success_message: "Tạo tài khoản admin thành công"
             });
-            newUser.save((err) => {
-                if (err){
-                    res.render('signup', {
-                        title: 'Đăng ký',
-                        layout: false,
-                        error_message: "Đăng ký thất bại !!!"
-                    });
-                } else {
-                    res.redirect('/');
-                }
-            })
-        })
+        } else {
+            //Fail
+            res.render('signup', {
+                title: 'Đăng ký',
+                layout: false,
+                error_message: "Đăng ký thất bại !!!"
+            });
+        }
     }
 }
 module.exports = {
@@ -60,4 +55,4 @@ module.exports = {
     logout,
     signupPage,
     signup
-}
+};
