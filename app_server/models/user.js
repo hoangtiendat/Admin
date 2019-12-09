@@ -14,7 +14,7 @@ module.exports = {
                     username: username,
                     email: email,
                     password: hash,
-                    type: 1
+                    type: constant.type["admin"]
                 });
                 try {
                     newUser.save(function (err) {
@@ -29,5 +29,17 @@ module.exports = {
                 }
             })
         })
+    },
+    getAllUser(currentUserType, userId){
+       if (currentUserType === constant.type["superAdmin"]){
+           return User.find({
+               userId: {$ne: userId},
+           });
+       } else {
+           return User.find({
+               userId: {$ne: userId},
+               type: {$eq: constant.type["customer"]}
+           });
+       }
     }
 };

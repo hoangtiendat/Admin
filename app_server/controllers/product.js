@@ -1,5 +1,12 @@
-const mongoose = require('mongoose');
 const Product = require('../models/product');
+
+const product = (req, res) => {
+    if (req.query.category){
+        productCategory(req, res);
+    } else if (req.query.source){
+        productSource(req, res);
+    }
+}
 
 const productCategory = async (req, res) => {
     const products = await Product.getProductByCategory(req.query.category);
@@ -58,6 +65,7 @@ const productDetail = async (req, res) => {
 };
 
 module.exports = {
+    product,
     productCategory,
     productSource,
     productDetail,

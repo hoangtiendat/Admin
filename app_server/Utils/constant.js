@@ -1,6 +1,6 @@
 const SALT_ROUNDS = 15;
 const type = {
-    "super admin": 0,
+    superAdmin: 0,
     admin: 1,
     customer: 2
 }
