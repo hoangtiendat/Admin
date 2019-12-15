@@ -14,7 +14,9 @@ module.exports = {
                     username: username,
                     email: email,
                     password: hash,
-                    type: constant.type["admin"]
+                    type: constant.type["admin"],
+                    isActive: true,
+                    createdDate: Date.now()
                 });
                 try {
                     newUser.save(function (err) {
@@ -29,6 +31,9 @@ module.exports = {
                 }
             })
         })
+    },
+    getUser(userId){
+        return User.findOne({userId: userId}).exec();
     },
     getAllUser(currentUserType, userId){
        if (currentUserType === constant.type["superAdmin"]){

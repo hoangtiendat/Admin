@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     firstName: String,
     lastName: String,
+    gender: String,
     email: String,
     birthDate: Date,
     address: String,
@@ -30,7 +31,8 @@ const userSchema = new mongoose.Schema({
     phone: String,
     avatar: String,
     createdDate: Date,
-    type: Number
+    type: Number,
+    isActive: Boolean
 });
 
 userSchema.index({coords: '2dsphere'});

@@ -26,7 +26,7 @@ router.get('/order', ctrlMain.order);
 
 router.get('/user', userCtrl.users);
 
-router.post('/user_detail', ctrlMain.user_detail);
+router.get('/user_detail/:userId', userCtrl.user_detail);
 
 /* GET Login page. */
 router.get('/login', accountCtrl.loginPage);

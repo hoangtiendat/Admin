@@ -812,6 +812,7 @@ ul.dropdown-menu.drp-mnu li {
 .inner-block {
     padding: 8em 2em 4em 2em;
     background: #fafafa;
+    min-height: 83vh;
 }
 .market-update-block {
     padding: 2em 2em;
@@ -2416,7 +2417,7 @@ ul.nav.tabs li a span {
 }
 .pro-head h2 {
     font-size: 2em;
-    color: #68AE00;
+    color: #3c763d;
     margin:0em 0em 1em 0.4em;
     font-family: 'Carrois Gothic', sans-serif;
 }
@@ -4779,6 +4780,11 @@ input[type="button"], input[type="submit"] {
     -ms-transition: 0.5s all;
 }
 
+/*User Detail*/
+.user-info-wrapper label {
+    color: #68AE00;
+    font-weight: 600;
+}
 /*Modals Style*/
 .modal-content {
     border: 10px solid rgba(244, 92, 93, 0.82);
@@ -4808,8 +4814,6 @@ label.col-form-label {
     -ms-transition: 0.5s all;
     transition: 0.5s all;
 }
-
-
 /*End Modals Style*/
 
 /*Responsive*/

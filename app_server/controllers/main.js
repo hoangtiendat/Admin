@@ -70,28 +70,6 @@ const order = (req, res) => {
 	}
 }
 
-const user = (req, res) => {
-	if (req.user != null) { 
-		res.render('user', {
-			title: 'Người dùng',
-			user: req.user
-		});
-	} else {
-		res.redirect('/login');
-	}
-}
-
-const user_detail = (req, res) => {
-	if (req.user != null) { 
-		res.render('user_detail', {
-			title: 'Người dùng',
-			user: req.user
-		});
-	} else {
-		res.redirect('/login');
-	}
-}
-
 module.exports = {
 	home,
 	statistics_product,
@@ -99,6 +77,4 @@ module.exports = {
 	shop,
 	shop_detail,
 	order,
-	user,
-	user_detail
 };

@@ -12,6 +12,9 @@ passport.use(new LocalStrategy(
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
+            if (!user.isActive) {
+                return done(null, false, { message: 'Tài khoản đã bị khóa' });
+            }
             bcrypt.compare(password, user.password, (err, result) => {
                 if (result !== true){
                     return done(null, false, { message: 'Incorrect password.' });
