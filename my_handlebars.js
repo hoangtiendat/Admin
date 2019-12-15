@@ -9,7 +9,7 @@ hbs.registerHelper("myAppend", function(str, suffix) {
     return String(str) + String(suffix);
 });
 hbs.registerHelper("getUserType", function(type) {
-    return Object.keys(constant.type).find(key => constant.type[key] === type);
+    return constant.getUserType(type);
 });
 hbs.registerHelper("parseDate", function(dateString, seperator) {
     seperator = seperator || '-';
@@ -29,6 +29,9 @@ hbs.registerHelper("parseDateTime", function(dateString, seperator) {
 hbs.registerHelper("numberWithCommas", function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 });
+hbs.registerHelper("numberizeBoolean", function(bool) {
+    return (bool)? 1:0;
+});
 hbs.registerHelper("getStatusMsg", function(status) {
     if (status)
         return "Hoạt động";
@@ -37,9 +40,21 @@ hbs.registerHelper("getStatusMsg", function(status) {
 });
 hbs.registerHelper("getStatusColor", function(status) {
     if (status)
-        return "#333333";
+        return "#3c763d";
     else
         return "#D44638";
+});
+hbs.registerHelper("getStatusBlockMsg", function(status) {
+    if (status)
+        return "Khóa TK";
+    else
+        return "Mở khóa";
+});
+hbs.registerHelper("getStatusBlockBtnClass", function(status) {
+    if (status)
+        return "btn-danger";
+    else
+        return "btn-success";
 });
 const handlebarsHelpers = require('handlebars-helpers');
 const helpers =  handlebarsHelpers();

@@ -9,6 +9,8 @@
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <link href="/stylesheets/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+        <!-- SweetAlert2 -->
+        <link href="/stylesheets/sweetalert2.min.css" rel="stylesheet" type="text/css" media="all">
         <!-- Custom Theme files -->
         <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" media="all"/>
         <!--js-->
@@ -325,9 +327,9 @@
                 <div class="menu">
                     <ul id="menu" >
                         <li id="menu-home" ><a href="/"><i class="fa fa-tachometer"></i><span>Trang chủ</span></a></li>
-                        <li><a href="user"><i class="fa fa-user"></i><span>Người dùng</span></a></li>
-                        <li><a href="shop"><i class="fa fa-shopping-basket"></i><span>Cửa hàng</span></a></li>
-                        <li><a href="order"><i class="fa fa-file-text"></i><span>Đơn hàng</span></a></li>
+                        <li><a href="/user"><i class="fa fa-user"></i><span>Người dùng</span></a></li>
+                        <li><a href="/shop"><i class="fa fa-shopping-basket"></i><span>Cửa hàng</span></a></li>
+                        <li><a href="/order"><i class="fa fa-file-text"></i><span>Đơn hàng</span></a></li>
                         <li><a href="#"><i class="fa fa-bar-chart"></i><span>Thống kê</span><span class="fa fa-angle-right" style="float: right"></span></a>
                             <ul id="menu-academico-sub" >
                                 <li id="menu-academico-avaliacoes" ><a href="statistics_product">Sản phẩm</a></li>
@@ -335,7 +337,7 @@
                             </ul>
                         </li>
                         {{#is user.type 0}}
-                            <li><a href="addAdmin"><i class="fa fa-plus"></i><span>Add Admin</span></a></li>
+                            <li><a href="/addAdmin"><i class="fa fa-plus"></i><span>Add Admin</span></a></li>
                         {{/is}} 
                     </ul>
                 </div>
@@ -343,6 +345,21 @@
             <div class="clearfix"> </div>
         </div>
         <!--slide bar menu end here-->
+        <!--Loading-->
+        <div id="loading" class="sk-fading-circle" style="display: none;">
+            <div class="sk-circle1 sk-circle"></div>
+            <div class="sk-circle2 sk-circle"></div>
+            <div class="sk-circle3 sk-circle"></div>
+            <div class="sk-circle4 sk-circle"></div>
+            <div class="sk-circle5 sk-circle"></div>
+            <div class="sk-circle6 sk-circle"></div>
+            <div class="sk-circle7 sk-circle"></div>
+            <div class="sk-circle8 sk-circle"></div>
+            <div class="sk-circle9 sk-circle"></div>
+            <div class="sk-circle10 sk-circle"></div>
+            <div class="sk-circle11 sk-circle"></div>
+            <div class="sk-circle12 sk-circle"></div>
+        </div>
 
         <script>
             var toggle = true;
@@ -368,7 +385,11 @@
         <script src="/javascripts/scripts.js"></script>
         <!--//scrolling js-->
         <script src="/javascripts/bootstrap.js"> </script>
+        <script src="/javascripts/sweetalert2.min.js"> </script>
         <!-- mother grid end here-->
         <script src="/javascripts/statistics.js"> </script>
+        <script src="/javascripts/service/loading.js"> </script>
+        <script src="/javascripts/service/utils.js"> </script>
+        <script src="/javascripts/sharedScripts.js"> </script>
     </body>
 </html>

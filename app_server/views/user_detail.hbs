@@ -1,6 +1,6 @@
 <div class="user-detail-wrapper">
     <div class="pro-head">
-        <h2>Thông tin chi tiết người dùng</h2>
+        <h2>Thông tin chi tiết người dùng: {{userDetail.userId}}</h2>
     </div>
     <div class="user-info-wrapper">
         <form class="form" action="" method="post">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="user_isActive">Tình trạng:</label>
-                    <div class="" id="user_isActive" style="color: {{getStatusColor userDetail.status}}">{{getStatusMsg userDetail.status}}</div>
+                    <div class="status-text" id="user_isActive" data-userId="{{userDetail.userId}}" style="font-weight: 600; color: {{getStatusColor userDetail.status}}">{{getStatusMsg userDetail.status}}</div>
                 </div>
             </div>
             <div class="row">
@@ -50,7 +50,7 @@
                     <textarea class="form-control" id="user_address" name="user_address" rows="3" disabled>{{default userDetail.address "..."}}</textarea>
                 </div>
                 <div class="form-group col-md-6">
-                    <button type="submit" class="btn btn-success pt">Khóa TK</button>
+                    <td><button type="button" data-userId="{{userDetail.userId}}" data-isActive="{{numberizeBoolean userDetail.isActive}}" class="set-status-btn btn {{getStatusBlockBtnClass userDetail.isActive}}">{{getStatusBlockMsg userDetail.isActive}}</button></td>
                 </div>
             </div>
             <div class="row">
@@ -71,3 +71,6 @@
     </div>
     <div class="clearfix"> </div>
 </div>
+<script type="text/javascript">
+
+</script>

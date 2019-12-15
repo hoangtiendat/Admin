@@ -4,7 +4,11 @@ const type = {
     admin: 1,
     customer: 2
 }
+function getUserType(typeStr){
+    Object.keys(type).find(key => type[key] === typeStr);
+}
 module.exports = {
     SALT_ROUNDS,
-    type
+    type,
+    getUserType
 }

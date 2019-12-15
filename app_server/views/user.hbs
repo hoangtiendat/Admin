@@ -8,30 +8,32 @@
                 <thead>
                 <tr class="success text-center">
                     <th style="width:5%;">#</th>
-                    <th style="width:12%;">Tên tài khoản</th>
-                    <th style="width: 7%;">Loại TK</th>
-                    <th style="width:16%;">Tên người dùng</th>
-                    <th style="width:10%;">Email</th>
-                    <th style="width:12%;">Số điện thoại</th>
-                    <th style="width:28%;" class="text-center">Địa chỉ</th>
+                    <th style="width:5%;">ID</th>
+                    <th style="width:15%;">Tên tài khoản</th>
+                    <th style="width:10%;">Loại TK</th>
+                    <th style="width:15%;">Email</th>
+                    <th style="width:15%;">Số điện thoại</th>
                     <th style="width:10%;">Tỉnh thành</th>
+                    <th style="width:15%;">Tình trạng</th>
+                    <th style="width:10%;"></th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each users}}
                     <tr>
                         <td>{{inc @index}}</td>
+                        <td>{{userId}}</td>
                         <td>
 
                             <a href="{{myAppend "/user_detail/" userId}}"  class="text-success text-"><u>{{username}}</u></a>
 
                         </td>
                         <td>{{getUserType type}}</td>
-                        <td>{{default firstName lastName "..."}} {{lastName}}</td>
                         <td>{{email}}</td>
                         <td>{{default phone "...."}}</td>
-                        <td class="text-center">{{default address "..."}}</td>
                         <td>{{default city "..."}}</td>
+                        <td data-userId="{{userId}}" class="status-text" style="color: {{getStatusColor isActive}}">{{getStatusMsg isActive}}</td>
+                        <td><button type="button" data-userId="{{userId}}" data-isActive="{{numberizeBoolean isActive}}" class="set-status-btn btn {{getStatusBlockBtnClass isActive}}">{{getStatusBlockMsg isActive}}</button></td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -41,28 +43,30 @@
                 <thead>
                 <tr class="success text-center">
                     <th style="width:5%;">#</th>
-                    <th style="width:13%;">Tên tài khoản</th>
-                    <th style="width:20%;">Tên người dùng</th>
-                    <th style="width:10%;">Email</th>
-                    <th style="width:12%;">Số điện thoại</th>
-                    <th style="width:30%;" class="text-center">Địa chỉ</th>
-                    <th style="width:10%;">Tỉnh thành</th>
+                    <th style="width:5%;">ID</th>
+                    <th style="width:15%;">Tên tài khoản</th>
+                    <th style="width:15%;">Email</th>
+                    <th style="width:15%;">Số điện thoại</th>
+                    <th style="width:15%;">Tỉnh thành</th>
+                    <th style="width:15%;">Tình trạng</th>
+                    <th style="width:15%;"></th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each users}}
                     <tr>
                         <td>{{inc @index}}</td>
+                        <td>{{userId}}</td>
                         <td>
 
                             <a href="{{myAppend "/user_detail/" userId}}"  class="text-success text-"><u>{{username}}</u></a>
 
                         </td>
-                        <td>{{default firstName lastName "..."}} {{lastName}}</td>
                         <td>{{email}}</td>
                         <td>{{default phone "..."}}</td>
-                        <td class="text-center">{{default address "..."}}</td>
                         <td>{{default city "..."}}</td>
+                        <td data-userId="{{userId}}" class="status-text" style="color: {{getStatusColor isActive}}">{{getStatusMsg isActive}}</td>
+                        <td><button type="button" data-userId="{{userId}}" data-isActive="{{numberizeBoolean isActive}}" class="set-status-btn btn {{getStatusBlockBtnClass isActive}}">{{getStatusBlockMsg isActive}}</button></td>
                     </tr>
                 {{/each}}
                 </tbody>

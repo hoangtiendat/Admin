@@ -49,7 +49,31 @@ const user_detail = async (req, res) => {
         }
     }
 }
+
+const setStatus = async (req, res) => {
+    if (req.isAuthenticated() && req.user.type === constant.type["superAdmin"]){
+        try {
+            const result = await User.setStatus(parseInt(req.body.userId), req.body.isActive );
+            res.json({
+                isSuccess: true
+            })
+
+        } catch(err){
+            console.log('err', err);
+            res.json({
+                isSuccess: false
+            })
+        }
+    } else {
+        res.json({
+            isSuccess: false
+        })
+    }
+
+}
+
 module.exports = {
     users,
-    user_detail
+    user_detail,
+    setStatus
 };

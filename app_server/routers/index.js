@@ -28,6 +28,8 @@ router.get('/user', userCtrl.users);
 
 router.get('/user_detail/:userId', userCtrl.user_detail);
 
+router.post('/user/setStatus', userCtrl.setStatus);
+
 /* GET Login page. */
 router.get('/login', accountCtrl.loginPage);
 router.post('/login', function(req, res, next){

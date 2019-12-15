@@ -46,5 +46,8 @@ module.exports = {
                type: {$eq: constant.type["customer"]}
            });
        }
+    },
+    setStatus(userId, isActive){
+        return User.findOneAndUpdate({userId: userId}, {isActive: isActive}).exec();
     }
 };
