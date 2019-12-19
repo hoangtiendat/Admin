@@ -35,7 +35,6 @@ const signup =  async (req, res) => {
             //Success
             res.render('index', {
                 title: 'Trang chủ',
-                user: req.user,
                 success_message: "Tạo tài khoản admin thành công"
             });
         } else {

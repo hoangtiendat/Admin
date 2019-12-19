@@ -26,7 +26,7 @@ const productCategory = async (req, res) => {
             break;
         default:
     }
-    res.render('product', { title: title, products: products, user: (req.isAuthenticated) ? req.user : null });
+    res.render('product', { title: title, products: products });
 };
 
 const productSource = async (req, res) => {
@@ -44,7 +44,7 @@ const productSource = async (req, res) => {
             break;
         default:
     }
-    res.render('product', { title: title, products: products, user: (req.isAuthenticated) ? req.user : null });
+    res.render('product', { title: title, products: products});
 };
 
 const productDetail = async (req, res) => {
@@ -60,7 +60,6 @@ const productDetail = async (req, res) => {
         urlImage: product.urlImage,
         category: product.category,
         source: product.source,
-        user: (req.isAuthenticated) ? req.user : null
     });
 };
 

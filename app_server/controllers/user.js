@@ -10,7 +10,6 @@ const users = async (req, res) => {
             res.render('user', {
                 title: 'Nguời dùng',
                 users: users,
-                user: req.user,
                 isSuperAdmin: req.user.type === constant.type["superAdmin"]
             });
         } catch(err) {
@@ -28,7 +27,6 @@ const user_detail = async (req, res) => {
             if (userDetail){
                 res.render('user_detail', {
                     title: 'Người dùng',
-                    user: req.user,
                     userDetail: Object.assign({}, userDetail._doc, {
                         status: userDetail.isActive,
                         type: Object.keys(constant.type).find(key => constant.type[key] === userDetail.type ),
@@ -39,7 +37,6 @@ const user_detail = async (req, res) => {
             } else {
                 res.render('error', {
                     title: 'Lỗi tìm kiếm người dùng',
-                    user: req.user,
                     message: "Lỗi không tìm thấy người dùng"
                 })
             }

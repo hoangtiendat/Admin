@@ -37,6 +37,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req, res, next) {
+  //Authentication
+  if (req.isAuthenticated()){
+    res.locals.user = req.user;
+    res.locals.authenticated = ! req.user.anonymous;
+  }
+  next();
+});
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(function(req, res, next) {
