@@ -1,25 +1,6 @@
 const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
-//Product
-const productSchema = new mongoose.Schema({
-    new: Boolean,
-    name: String,
-    urlImage: String,
-    imageUploadBy: Number,
-    discount: Number,
-    price: Number,
-    storeId: Number,
-    category: String,
-    description: String,
-    purchaseCount: Number,
-    createdDate: Date
-});
-
-productSchema.index({coords: '2dsphere'});
-productSchema.plugin(AutoIncrement, {inc_field: 'productId'});
-mongoose.model('Product', productSchema);
-
 //User
 const userSchema = new mongoose.Schema({
     username: String,
@@ -34,27 +15,14 @@ const userSchema = new mongoose.Schema({
     phone: String,
     avatar: String,
     createdDate: Date,
-    type: Number,
-    isActive: Boolean
+    isActive: Boolean,
+    type: Number
 });
 
 userSchema.index({coords: '2dsphere'});
 userSchema.plugin(AutoIncrement, {inc_field: 'userId'});
 mongoose.model('User', userSchema);
 
-//Store
-const storeSchema = new mongoose.Schema({
-    brandId: Number,
-    name: String,
-    owner: String,
-    address: String,
-    city: String,
-    purchaseCount: Number,
-    createdDate: Date,
-});
-storeSchema.index({coords: '2dsphere'});
-storeSchema.plugin(AutoIncrement, {inc_field: 'storeId'});
-mongoose.model('Store', storeSchema);
 
 //Brand
 const brandSchema = new mongoose.Schema({
@@ -68,6 +36,71 @@ const brandSchema = new mongoose.Schema({
 brandSchema.index({coords: '2dsphere'});
 brandSchema.plugin(AutoIncrement, {inc_field: 'brandId'});
 mongoose.model('Brand', brandSchema);
+
+//Store
+const storeSchema = new mongoose.Schema({
+    brandId: Number,
+    name: String,
+    owner: String,
+    address: String,
+    city: String,
+    purchaseCount: Number,
+    createdDate: Date,
+}, { toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+storeSchema.virtual('brand',{
+    ref: 'Brand',
+    localField: 'brandId',
+    foreignField: 'brandId',
+    justOne: true
+});
+storeSchema.index({coords: '2dsphere'});
+storeSchema.plugin(AutoIncrement, {inc_field: 'storeId'});
+mongoose.model('Store', storeSchema);
+
+//Category
+const categorySchema = new mongoose.Schema({
+    categoryName: String,
+
+});
+categorySchema.index({coords: '2dsphere'});
+categorySchema.plugin(AutoIncrement, {inc_field: 'categoryId'});
+mongoose.model('Category', categorySchema);
+
+
+//Product
+const productSchema = new mongoose.Schema({
+    new: Boolean,
+    name: String,
+    urlImage: String,
+    imageUploadBy: Number,
+    discount: Number,
+    price: Number,
+    storeId:  Number,
+    categoryId: Number,
+    description: String,
+    purchaseCount: Number,
+    createdDate: Date
+}, { toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+
+productSchema.virtual('store',{
+    ref: 'Store',
+    localField: 'storeId',
+    foreignField: 'storeId',
+    justOne: true
+});
+productSchema.virtual('category',{
+    ref: 'Category',
+    localField: 'categoryId',
+    foreignField: 'categoryId',
+    justOne: true
+});
+productSchema.index({coords: '2dsphere'});
+productSchema.plugin(AutoIncrement, {inc_field: 'productId'});
+mongoose.model('Product', productSchema);
 
 //Bill
 const billSchema = new mongoose.Schema({
@@ -84,6 +117,20 @@ const billSchema = new mongoose.Schema({
     purchaseDate: Date,
     deliveryDate: Date,
     status: String,
+}, { toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+billSchema.virtual('buyer',{
+    ref: 'User',
+    localField: 'buyerId',
+    foreignField: 'userId',
+    justOne: true
+});
+billSchema.virtual('product',{
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: 'productId',
+    justOne: true
 });
 billSchema.index({coords: '2dsphere'});
 billSchema.plugin(AutoIncrement, {inc_field: 'billId'});
@@ -94,6 +141,20 @@ const billDetailSchema = new mongoose.Schema({
     billId: Number,
     productId: Number,
     amount: Number
+}, { toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+billDetailSchema.virtual('bill',{
+    ref: 'Bill',
+    localField: 'billId',
+    foreignField: 'billId',
+    justOne: true
+});
+billDetailSchema.virtual('product',{
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: 'productId',
+    justOne: true
 });
 billDetailSchema.index({coords: '2dsphere'});
 billDetailSchema.plugin(AutoIncrement, {inc_field: 'billDetailId'});
@@ -105,6 +166,20 @@ const commentSchema = new mongoose.Schema({
     productId: Number,
     content: String,
     createdDate: Date
+}, { toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+});
+commentSchema.virtual('user',{
+    ref: 'User',
+    localField: 'userId',
+    foreignField: 'userId',
+    justOne: true
+});
+commentSchema.virtual('product',{
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: 'productId',
+    justOne: true
 });
 commentSchema.index({coords: '2dsphere'});
 commentSchema.plugin(AutoIncrement, {inc_field: 'commentId'});

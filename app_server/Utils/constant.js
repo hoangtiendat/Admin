@@ -5,7 +5,7 @@ const type = {
     customer: 2
 }
 function getUserType(typeStr){
-    Object.keys(type).find(key => type[key] === typeStr);
+    return Object.keys(type).find(key => type[key] === typeStr);
 }
 module.exports = {
     SALT_ROUNDS,

@@ -5,6 +5,7 @@ const ctrlMain = require('../controllers/main');
 const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
+const storeCtrl = require('../controllers/store');
 require('./passport');
 
 /* GET home page. */
@@ -18,9 +19,9 @@ router.get('/statistics_revenue', ctrlMain.statistics_revenue);
 
 router.post('/statistics_revenue', ctrlMain.statistics_revenue);
 
-router.get('/shop', ctrlMain.shop);
+router.get('/store', storeCtrl.stores);
 
-router.post('/shop_detail', ctrlMain.shop_detail);
+//router.get('/store_detail', storeCtrl.store_detail);
 
 router.get('/order', ctrlMain.order);
 
