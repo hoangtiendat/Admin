@@ -38,5 +38,41 @@
             </tbody>
         </table>
     </div>
+    <!--Pagination-->
+    {{#compare pages ">" 0}}
+        <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {{#compare page "===" 1}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/store?page={{dec page}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+
+                {{{generatePagination "store" page pages}}}
+
+                {{#compare page "===" pages}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/store?page={{inc page}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+            </ul>
+        </nav>
+    {{/compare}}
     <div class="clearfix"> </div>
 </div>

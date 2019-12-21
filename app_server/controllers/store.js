@@ -6,10 +6,14 @@ const stores = async (req, res) => {
         res.redirect('/login');
     } else {
         try {
-            const stores  = await Store.getAllStore();
+            const page = parseInt(req.query.page) || 1;
+            const stores  = await Store.getStoreInPage(page);
+            const count = await Store.countStore();
             res.render('shop', {
                 title: 'Cửa hàng',
                 stores: stores,
+                page: page,
+                pages: Math.ceil(count / constant.perPage)
             });
         } catch(err) {
             console.log('err', err);

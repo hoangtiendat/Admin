@@ -7,11 +7,10 @@
             <table class="table">
                 <thead>
                 <tr class="success text-center">
-                    <th style="width:5%;">#</th>
                     <th style="width:5%;">ID</th>
                     <th style="width:15%;">Tên tài khoản</th>
                     <th style="width:10%;">Loại TK</th>
-                    <th style="width:15%;">Email</th>
+                    <th style="width:20%;">Email</th>
                     <th style="width:15%;">Số điện thoại</th>
                     <th style="width:10%;">Tỉnh thành</th>
                     <th style="width:15%;">Tình trạng</th>
@@ -21,7 +20,6 @@
                 <tbody>
                 {{#each users}}
                     <tr>
-                        <td>{{inc @index}}</td>
                         <td>{{userId}}</td>
                         <td>
 
@@ -42,10 +40,9 @@
             <table class="table">
                 <thead>
                 <tr class="success text-center">
-                    <th style="width:5%;">#</th>
                     <th style="width:5%;">ID</th>
                     <th style="width:15%;">Tên tài khoản</th>
-                    <th style="width:15%;">Email</th>
+                    <th style="width:20%;">Email</th>
                     <th style="width:15%;">Số điện thoại</th>
                     <th style="width:15%;">Tỉnh thành</th>
                     <th style="width:15%;">Tình trạng</th>
@@ -55,7 +52,6 @@
                 <tbody>
                 {{#each users}}
                     <tr>
-                        <td>{{inc @index}}</td>
                         <td>{{userId}}</td>
                         <td>
 
@@ -73,6 +69,42 @@
             </table>
         {{/if}}
     </div>
+    <!--Pagination-->
+    {{#compare pages ">" 0}}
+    <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {{#compare page "===" 1}}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="/user?page={{dec page}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {{/compare}}
+
+            {{{generatePagination "user" page pages}}}
+
+            {{#compare page "===" pages}}
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="/user?page={{inc page}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {{/compare}}
+        </ul>
+    </nav>
+    {{/compare}}
     <div class="clearfix"> </div>
 </div>
 

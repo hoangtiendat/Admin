@@ -5,6 +5,10 @@ hbs.registerHelper("inc", function(value, options)
 {
     return parseInt(value) + 1;
 });
+hbs.registerHelper("dec", function(value, options)
+{
+    return parseInt(value) - 1;
+});
 hbs.registerHelper("myAppend", function(str, suffix) {
     return String(str) + String(suffix);
 });
@@ -56,6 +60,22 @@ hbs.registerHelper("getStatusBlockBtnClass", function(status) {
     else
         return "btn-success";
 });
+hbs.registerHelper("generatePagination", function(route, page, count) {
+    let pageStr = "";
+    const pageMax = constant.paginationMax;
+    let i = (page > pageMax)? page - (pageMax - 1): 1;
+    if (i !== 1)
+        pageStr += `<li class="page-item disabled"><a class="page-link" href="">...</a></li>`;
+    for (; i <= page +  pageMax - 1 && i <= count; i++){
+       if (i === page)
+           pageStr += `<li class="page-item active"><a class="page-link" href="#">${i}</a></li>`;
+       else
+           pageStr += `<li class="page-item"><a class="page-link" href="/${route}?page=${i}">${i}</a></li>`;
+       if (i === page + pageMax - 1 && i < count)
+           pageStr += `<li class="page-item disabled"><a class="page-link" href="">...</a></li>`;
+    }
+    return pageStr;
+});
 const handlebarsHelpers = require('handlebars-helpers');
 const helpers =  handlebarsHelpers();
 // app.helper({'is': helpers.is});
@@ -63,5 +83,5 @@ hbs.registerHelper("is", helpers.is);
 hbs.registerHelper("compare", helpers.compare);
 hbs.registerHelper("default", helpers.default);
 hbs.registerHelper("append", helpers.append);
-
+hbs.registerHelper("compare", helpers.compare);
 module.exports = hbs;

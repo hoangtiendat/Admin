@@ -47,6 +47,34 @@ module.exports = {
            });
        }
     },
+    getUserInPage(currentUserType, userId, page){
+        if (currentUserType === constant.type["superAdmin"]){
+            return User.find({
+                userId: {$ne: userId},
+            })
+                .skip((constant.perPage * page) - constant.perPage)
+                .limit(constant.perPage);
+        } else {
+            return User.find({
+                userId: {$ne: userId},
+                type: {$eq: constant.type["customer"]}
+            })
+                .skip((constant.perPage * page) - constant.perPage)
+                .limit(constant.perPage);
+        }
+    },
+    countUser(currentUserType, userId){
+        if (currentUserType === constant.type["superAdmin"]){
+            return User.count({
+                userId: {$ne: userId},
+            }).exec();
+        } else {
+            return User.count({
+                userId: {$ne: userId},
+                type: {$eq: constant.type["customer"]}
+            }).exec();
+        }
+    },
     setStatus(userId, isActive){
         return User.findOneAndUpdate({userId: userId}, {isActive: isActive}).exec();
     }

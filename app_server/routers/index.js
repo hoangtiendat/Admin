@@ -19,13 +19,13 @@ router.get('/statistics_revenue', ctrlMain.statistics_revenue);
 
 router.post('/statistics_revenue', ctrlMain.statistics_revenue);
 
-router.get('/store', storeCtrl.stores);
+router.get('/store/', storeCtrl.stores);
 
 //router.get('/store_detail', storeCtrl.store_detail);
 
 router.get('/order', ctrlMain.order);
 
-router.get('/user', userCtrl.users);
+router.get('/user/', userCtrl.users);
 
 router.get('/user_detail/:userId', userCtrl.user_detail);
 

@@ -4,11 +4,15 @@ const type = {
     admin: 1,
     customer: 2
 }
+const perPage = 5;
+const paginationMax = 5;
 function getUserType(typeStr){
     return Object.keys(type).find(key => type[key] === typeStr);
 }
 module.exports = {
     SALT_ROUNDS,
     type,
-    getUserType
+    getUserType,
+    perPage,
+    paginationMax
 }

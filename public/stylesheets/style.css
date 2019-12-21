@@ -4785,6 +4785,36 @@ input[type="button"], input[type="submit"] {
     color: #68AE00;
     font-weight: 600;
 }
+/*My Pagination*/
+.pagination > li > a
+{
+    background-color: white;
+    color: #3C763D;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #68AE00 !Important;
+    border: solid 1px #68AE00 !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #3C763D !Important;
+    border: solid 1px #3C763D;
+}
+
 /*Modals Style*/
 .modal-content {
     border: 10px solid rgba(244, 92, 93, 0.82);

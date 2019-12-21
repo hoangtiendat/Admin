@@ -6,10 +6,14 @@ const users = async (req, res) => {
         res.redirect('/login');
     } else {
         try {
-            const users  = await User.getAllUser(req.user.type, req.user.userId);
+            const page = parseInt(req.query.page) || 1;
+            const users  = await User.getUserInPage(req.user.type, req.user.userId, page);
+            const count = await User.countUser(req.user.type, req.user.userId);
             res.render('user', {
                 title: 'Nguời dùng',
                 users: users,
+                page: page,
+                pages: Math.ceil(count / constant.perPage),
                 isSuperAdmin: req.user.type === constant.type["superAdmin"]
             });
         } catch(err) {
