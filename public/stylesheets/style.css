@@ -2414,6 +2414,7 @@ ul.nav.tabs li a span {
     border: 1px solid #ccc;
     box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.15);
     margin-bottom: 3em;
+    position: relative;
 }
 .pro-head h2 {
     font-size: 2em;
@@ -2421,20 +2422,37 @@ ul.nav.tabs li a span {
     margin:0em 0em 1em 0.4em;
     font-family: 'Carrois Gothic', sans-serif;
 }
-.produ-cost {
+.project-eff {
+    position: relative;
+    top: 0;
+    text-align: center;
+}
+.project-eff img {
+    display: inline;
+}
+.product-cost {
+    width: 100%;
+    height: 90px;
     padding: 0.8em 1.5em;
     background: #337AB7;
+    position: relative;
+    top: 100%;
 }
-.produ-cost h4 {
+.product-cost h4 {
     font-size: 1.2em;
     color: #fff;
     margin-bottom: 0.5em;
     font-family: 'Carrois Gothic', sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.produ-cost h5 {
+.product-cost h5 {
     font-size: 1em;
     color: #fff;
     font-family: 'Carrois Gothic', sans-serif;
+    float: right;
+    position: absolute;
+    bottom: 7px;
 }
 /*--light-box--*/
 .project-eff:hover span.rollover1 {
@@ -4814,7 +4832,11 @@ input[type="button"], input[type="submit"] {
     background-color: #3C763D !Important;
     border: solid 1px #3C763D;
 }
-
+.sale-price {
+    font-size: 0.9em;
+    font-style: italic;
+    text-decoration: line-through;
+}
 /*Modals Style*/
 .modal-content {
     border: 10px solid rgba(244, 92, 93, 0.82);

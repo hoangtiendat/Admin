@@ -11,5 +11,9 @@ module.exports = {
   },
   getProductBySource(source){
     return Product.find({"source": source}).exec();
+  },
+  getProductByStoreId(storeId){
+    return Product.find({"storeId": storeId}).exec();
+  },
   }
 };

@@ -33,27 +33,6 @@ const statistics_revenue = (req, res) => {
 	}
 };
 
-const shop = (req, res) => {
-	if (req.user != null) { 
-		res.render('shop', {
-			title: 'Cửa hàng',
-		});
-	} else {
-		res.redirect('/login');
-	}
-};
-
-const shop_detail = (req, res) => {
-	if (req.user != null) { 
-		res.render('shop_detail', {
-			title: 'Cửa hàng',
-		});
-	} else {
-		res.redirect('/login');
-	}
-};
-
-
 const order = (req, res) => {
 	if (req.user != null) { 
 		res.render('order', {
@@ -69,7 +48,5 @@ module.exports = {
 	home,
 	statistics_product,
 	statistics_revenue,
-	shop,
-	shop_detail,
 	order,
 };

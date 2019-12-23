@@ -6,13 +6,23 @@ const type = {
 }
 const perPage = 5;
 const paginationMax = 5;
+const currency = "VND";
 function getUserType(typeStr){
     return Object.keys(type).find(key => type[key] === typeStr);
+}
+function splitToChunk(arr, size){
+    let temp = [];
+    for (let i = 0; i < arr.length; i+=size){
+        temp.push(arr.slice(i, i + size));
+    }
+    return temp;
 }
 module.exports = {
     SALT_ROUNDS,
     type,
     getUserType,
     perPage,
-    paginationMax
+    paginationMax,
+    currency,
+    splitToChunk,
 }

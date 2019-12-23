@@ -1,4 +1,5 @@
 const Store = require('../models/Store');
+const Product = require('../models/Product');
 const constant = require('../Utils/constant');
 
 const stores = async (req, res) => {
@@ -21,6 +22,30 @@ const stores = async (req, res) => {
     }
 }
 
+const store_detail = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        const storeDetail = await Store.getStore(req.params.storeId);
+        const products = await Product.getProductByStoreId(req.params.storeId);
+        products.forEach((product) => {
+            product.salePrice = parseInt(product.price) - parseInt(product.discount);
+        })
+        if (storeDetail){
+            res.render('shop_detail', {
+                title: 'Người dùng',
+                storeDetail: storeDetail,
+                productChunks: constant.splitToChunk(products, 4)
+            });
+        } else {
+            res.render('error', {
+                title: 'Lỗi tìm kiếm cửa hàng',
+                message: "Lỗi không tìm thấy cửa hàng"
+            })
+        }
+    }
+};
 module.exports = {
-    stores
+    stores,
+    store_detail
 }

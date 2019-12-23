@@ -76,6 +76,9 @@ hbs.registerHelper("generatePagination", function(route, page, count) {
     }
     return pageStr;
 });
+hbs.registerHelper("formatPrice", function(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + constant.currency;
+});
 const handlebarsHelpers = require('handlebars-helpers');
 const helpers =  handlebarsHelpers();
 // app.helper({'is': helpers.is});

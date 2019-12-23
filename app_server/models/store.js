@@ -14,5 +14,8 @@ module.exports = {
     },
     countStore(){
         return Store.count().exec();
+    },
+    getStore(storeId){
+        return Store.findOne({storeId: storeId}).populate("brand");
     }
 };

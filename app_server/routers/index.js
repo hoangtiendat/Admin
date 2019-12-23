@@ -21,7 +21,7 @@ router.post('/statistics_revenue', ctrlMain.statistics_revenue);
 
 router.get('/store/', storeCtrl.stores);
 
-//router.get('/store_detail', storeCtrl.store_detail);
+router.get('/store_detail/:storeId', storeCtrl.store_detail);
 
 router.get('/order', ctrlMain.order);
 
