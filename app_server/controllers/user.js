@@ -14,7 +14,7 @@ const users = async (req, res) => {
                 users: users,
                 page: page,
                 pages: Math.ceil(count / constant.perPage),
-                isSuperAdmin: req.user.type === constant.type["superAdmin"]
+                isSuperAdmin: req.user.type === constant.type["superAdmin"],
             });
         } catch(err) {
             console.log('err', err);

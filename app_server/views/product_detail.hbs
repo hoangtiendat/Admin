@@ -1,0 +1,43 @@
+<div class="shop-detail-wrapper">
+    <input id="product-id" type="hidden" value="{{productDetail.productId}}"/>
+    <input id="product-image-urls" type="hidden" value="{{productDetail.urlImage}}"/>
+    <div class="pro-head">
+        <h2>{{productDetail.name}}</h2>
+    </div>
+    <div class="product-info-wrapper">
+        <table class="table table-borderless">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <th style="width: 15%;">Giá: </th>
+                <td>{{formatPrice productDetail.salePrice}}</td>
+                <th style="width: 15%;">Giá trước giảm: </th>
+                <td class="sale-price">{{formatPrice productDetail.price}}</td>
+            </tr>
+            <tr>
+                <th style="width: 15%;">Cửa hàng: </th>
+                <td><a href="/store_detail/{{productDetail.store.storeId}}">{{productDetail.store.name}}</a></td>
+                <th style="width: 15%;">Thương hiệu: </th>
+                <td>{{productDetail.store.brand.name}}</td>
+            </tr>
+            <tr>
+                <th style="width: 15%;">Loại sản phẩm: </th>
+                <td>{{productDetail.category.categoryName}}</td>
+                <th style="width: 15%;">Số lượt mua: </th>
+                <td>{{productDetail.purchaseCount}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pro-head">
+        <h2>Ảnh sản phẩm</h2>
+        <form id="product-upload-image" class="dropzone" enctype="multipart/form-data">
+            <div class="fallback">
+                <input name="images" type="file" multiple />
+            </div>
+        </form>
+        <button id="product-upload-image-btn" type="button" class="btn btn-success">Upload</button>
+    </div>
+    <div class="clearfix"> </div>
+</div>

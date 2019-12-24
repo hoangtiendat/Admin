@@ -6,6 +6,10 @@ const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
 const storeCtrl = require('../controllers/store');
+
+const multer = require('multer');
+const inMemoryStorage = multer.memoryStorage();
+const upload = multer({ storage: inMemoryStorage });
 require('./passport');
 
 /* GET home page. */
@@ -23,6 +27,8 @@ router.get('/store/', storeCtrl.stores);
 
 router.get('/store_detail/:storeId', storeCtrl.store_detail);
 
+router.get('/product_detail/:productId', productCtrl.productDetail);
+
 router.get('/order', ctrlMain.order);
 
 router.get('/user/', userCtrl.users);
@@ -30,6 +36,8 @@ router.get('/user/', userCtrl.users);
 router.get('/user_detail/:userId', userCtrl.user_detail);
 
 router.post('/user/setStatus', userCtrl.setStatus);
+
+router.post('/product/uploadImage', upload.array('images'), productCtrl.uploadProductImage);
 
 /* GET Login page. */
 router.get('/login', accountCtrl.loginPage);

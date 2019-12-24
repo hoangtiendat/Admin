@@ -48,24 +48,37 @@ const productSource = async (req, res) => {
 };
 
 const productDetail = async (req, res) => {
-    const product = await Product.getProductById(req.query.productId);
-    res.render('item_detail', (!product)? {
-        title: 'Sản phẩm'
-    }: {
-        title: 'Sản phẩm',
-        new: product.new,
-        name: product.name,
-        discount: product.discount,
-        price: product.price,
-        urlImage: product.urlImage,
-        category: product.category,
-        source: product.source,
-    });
+    const product = await Product.getProductById(req.params.productId);
+    product.salePrice = parseInt(product.price) - parseInt(product.discount);
+    if (product){
+        res.render('product_detail', {
+            title: 'Sản phẩm',
+            productDetail: product,
+        });
+    } else {
+        res.render('error', {
+            title: 'Lỗi tìm kiếm sản phẩm',
+            message: "Lỗi không tìm thấy sản phẩm"
+        })
+    }
 };
-
+const uploadProductImage = (req, res) => {
+    const productId = req.body.productId;
+    let numOfImages = req.body.numOfImages;
+    const removedImages = req.body.removedImages.split(constant.urlImageSeperator);
+    req.files.forEach(async (file, idx) => {
+        if (removedImages.length > 0){
+            const removedIdx = removedImages.pop();
+            const url = await Product.uploadProductImages(productId, removedIdx, file);
+        } else {
+            const url = await Product.uploadProductImages(productId, ++numOfImages, file);
+        }
+    })
+}
 module.exports = {
     product,
     productCategory,
     productSource,
     productDetail,
+    uploadProductImage
 }

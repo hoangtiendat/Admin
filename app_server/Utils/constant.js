@@ -7,6 +7,8 @@ const type = {
 const perPage = 5;
 const paginationMax = 5;
 const currency = "VND";
+const productPerPage = 10
+const urlImageSeperator = ", ";
 function getUserType(typeStr){
     return Object.keys(type).find(key => type[key] === typeStr);
 }
@@ -25,4 +27,6 @@ module.exports = {
     paginationMax,
     currency,
     splitToChunk,
+    productPerPage,
+    urlImageSeperator
 }

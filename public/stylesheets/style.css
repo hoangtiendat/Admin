@@ -2446,6 +2446,12 @@ ul.nav.tabs li a span {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.product-cost h4 a {
+    color: #ffffff;
+}
+.product-cost h4 a:hover {
+    color: #ffffff;
+}
 .product-cost h5 {
     font-size: 1em;
     color: #fff;
@@ -4836,6 +4842,10 @@ input[type="button"], input[type="submit"] {
     font-size: 0.9em;
     font-style: italic;
     text-decoration: line-through;
+}
+/*Dropzone*/
+.dz-image {
+    height: 200px !important;
 }
 /*Modals Style*/
 .modal-content {

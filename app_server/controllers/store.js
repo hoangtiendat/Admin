@@ -27,15 +27,21 @@ const store_detail = async (req, res) => {
         res.redirect('/login');
     } else {
         const storeDetail = await Store.getStore(req.params.storeId);
-        const products = await Product.getProductByStoreId(req.params.storeId);
+        const page = parseInt(req.query.page) || 1;
+        const products = await Product.getProductByStoreIdInPage(req.params.storeId, page);
+        const count = await Product.countProductOfStore(req.params.storeId);
         products.forEach((product) => {
             product.salePrice = parseInt(product.price) - parseInt(product.discount);
+            product.urlImage = product.urlImage.split(constant.urlImageSeperator)[0];
         })
         if (storeDetail){
             res.render('shop_detail', {
                 title: 'Người dùng',
                 storeDetail: storeDetail,
-                productChunks: constant.splitToChunk(products, 4)
+                productChunks: constant.splitToChunk(products, 4),
+                page: page,
+                pages: Math.ceil(count / constant.productPerPage),
+                storeDetailUrl: "store_detail/" + req.params.storeId
             });
         } else {
             res.render('error', {

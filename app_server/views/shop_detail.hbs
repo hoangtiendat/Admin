@@ -37,11 +37,11 @@
                 <div class="col-md-3 product-grid">
                     <div class="product-items">
                         <div class="project-eff">
-                            <div id="nivo-lightbox-demo"> <p> <a href="/product_detail/{{productId}}"data-lightbox-gallery="gallery1" id="nivo-lightbox-demo"><span class="rollover1"> </span> </a></p></div>
+                            <div id="nivo-lightbox-demo"> <p> <a href="/product_detail/{{productId}}" data-lightbox-gallery="gallery1" id="nivo-lightbox-demo"><span class="rollover1"> </span> </a></p></div>
                             <img style="max-width: 250px; height: 200px;" class="img-responsive" src="{{urlImage}}" alt="">
                         </div>
                         <div class="product-cost">
-                            <h4 class="product-items-name">{{name}}</h4>
+                            <h4 class="product-items-name"><a href="/product_detail/{{productId}}">{{name}}</a></h4>
                             <h5>{{formatPrice salePrice}} <span class="sale-price">{{formatPrice price}}</span></h5>
                         </div>
                     </div>
@@ -49,5 +49,41 @@
             {{/each}}
         </div>
     {{/each}}
+    <!--Pagination-->
+    {{#compare pages ">" 0}}
+        <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {{#compare page "===" 1}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/store_detail/{{storeDetail.storeId}}?page={{dec page}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+
+                {{{generatePagination storeDetailUrl page pages}}}
+
+                {{#compare page "===" pages}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/store_detail/{{storeDetail.storeId}}?page={{inc page}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+            </ul>
+        </nav>
+    {{/compare}}
     <div class="clearfix"> </div>
 </div>

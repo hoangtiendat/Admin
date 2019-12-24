@@ -1,7 +1,9 @@
 $( document ).ready(function() {
+    Dropzone.autoDiscover = false;
     const blockMsg = ["Mở khóa", "Khóa TK"];
     const statusMsg = ["Khóa", "Hoạt động"];
     const statusMsgColor = ["#D44638", "#3c763d"];
+    const urlImageSeperator = ", ";
     $('.set-status-btn').on('click', async (e) => {
         const $this = $(e.target);
         const userId = $this.attr('data-userId');
@@ -58,4 +60,63 @@ $( document ).ready(function() {
         $statusText.text(statusMsg[isActive]);
         $statusText.css('color', statusMsgColor[isActive]);
     }
+
+    //Product Upload Image
+    const $productDetailId = $('#product-id');
+    let productNumOfImages = 0;
+    let removedImages = [];
+    $('#product-upload-image').dropzone({
+        url: "/product/uploadImage",
+        method: "POST",
+        timeout: 5 * 60,
+        uploadMultiple: true,
+        paramName:  function(n) { return "images";},
+        dictDefaultMessage: "Kéo ảnh sản phẩm vào",
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        dictRemoveFile: "Xóa",
+        autoProcessQueue: false,
+        init: function () {
+            let myDropzone = this;
+            let urls = $('#product-image-urls').val() || "";
+            urls = urls.split(urlImageSeperator);
+            productNumOfImages = urls.length;
+            for (let i = 0; i < urls.length; i++){
+                const mockFile = {
+                    name: urls[i].slice(urls[i].lastIndexOf("/") + 1),
+                    size: 1234,
+                    type: "image/jpeg",
+                    status: Dropzone.ADDED,
+                    url: urls[i],
+                    accepted: true,
+                    index: i + 1
+                };
+                myDropzone.options.addedfile.call(this, mockFile);
+                myDropzone.options.thumbnail.call(this, mockFile, urls[i]);
+                myDropzone.options.complete.call(this, mockFile);
+                myDropzone.files.push(mockFile);
+
+                mockFile.previewElement.classList.add('dz-success');
+                mockFile.previewElement.classList.add('dz-complete');
+            }
+
+            this.on("removedfile", function (file) {
+                // Only files that have been programmatically added should
+                // have a url property.
+                if (file.url && file.url.trim().length > 0) {
+                    removedImages.push(file.index);
+                }
+            });
+        },
+        sending: (file, xhr, formData) => {
+            formData.append("productId", parseInt($productDetailId.val()));
+            formData.append("numOfImages", productNumOfImages);
+            formData.append("removedImages", removedImages.join(urlImageSeperator));
+        }
+    });
+    $('#product-upload-image-btn').on('click', (e) => {
+        e.preventDefault();
+        const dropzone = Dropzone.forElement('#product-upload-image');
+        dropzone.processQueue();
+    })
 });
