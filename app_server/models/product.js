@@ -29,6 +29,18 @@ module.exports = {
   countProductOfStore(storeId){
     return Product.count({storeId: storeId}).exec();
   },
+  getTopSaleProduct(limit){
+    return Product.find({})
+        .sort({purchaseCount: -1})
+        .limit(limit)
+        .exec();
+  },
+  getTopSaleProductOfStore(storeId, limit){
+    return Product.find({storeId: storeId})
+        .sort({purchaseCount: -1})
+        .limit(limit)
+        .exec();
+  },
   async uploadProductImages(productId, imageNum, image){
     const extension = image.originalname.slice(image.originalname.lastIndexOf('.'));
     const imageName = "product_" + productId+ "_image_" + imageNum + extension;
@@ -36,5 +48,5 @@ module.exports = {
   },
   setProductUrlImage(productId, urlImage){
     Product.findOneAndUpdate({productId: productId}, {urlImage: urlImage}).exec();
-  }
+  },
 };

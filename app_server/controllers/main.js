@@ -13,16 +13,6 @@ const home = (req, res) => {
 	}
 };
 
-const statistics_product = (req, res) => {
-	if (req.user != null) { 
-		res.render('statistics_product', {
-			title: 'Thống kê',
-		});
-	} else {
-		res.redirect('/login');
-	}
-};
-
 const statistics_revenue = (req, res) => {
 	if (req.user != null) { 
 		res.render('statistics_revenue', {
@@ -46,7 +36,6 @@ const order = (req, res) => {
 
 module.exports = {
 	home,
-	statistics_product,
 	statistics_revenue,
 	order,
 };

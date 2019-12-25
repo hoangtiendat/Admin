@@ -79,6 +79,15 @@ hbs.registerHelper("generatePagination", function(route, page, count) {
 hbs.registerHelper("formatPrice", function(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " " + constant.currency;
 });
+hbs.registerHelper("select", function(value, options) {
+    return options.fn(this)
+        .split('\n')
+        .map(function(v) {
+            const t = 'value="' + value + '"'
+            return ! RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
+        })
+        .join('\n')
+});
 const handlebarsHelpers = require('handlebars-helpers');
 const helpers =  handlebarsHelpers();
 // app.helper({'is': helpers.is});

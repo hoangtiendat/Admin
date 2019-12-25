@@ -2416,6 +2416,19 @@ ul.nav.tabs li a span {
     margin-bottom: 3em;
     position: relative;
 }
+.product-items .product-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 7px 5px;
+    z-index: 100;
+}
+.product-items .product-label span {
+    font-size: 1.1em;
+    background: #777777;
+    border-radius: 100%;
+    padding: 4px 7px;
+}
 .pro-head h2 {
     font-size: 2em;
     color: #3c763d;
@@ -2459,6 +2472,10 @@ ul.nav.tabs li a span {
     float: right;
     position: absolute;
     bottom: 7px;
+}
+.product-cost h5 span {
+    position: relative;
+    left: 30px;
 }
 /*--light-box--*/
 .project-eff:hover span.rollover1 {

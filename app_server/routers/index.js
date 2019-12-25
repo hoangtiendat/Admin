@@ -6,6 +6,7 @@ const accountCtrl = require('../controllers/account');
 const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
 const storeCtrl = require('../controllers/store');
+const statisticsCtrl = require('../controllers/statistics');
 
 const multer = require('multer');
 const inMemoryStorage = multer.memoryStorage();
@@ -15,9 +16,7 @@ require('./passport');
 /* GET home page. */
 router.get('/', ctrlMain.home);
 
-router.get('/statistics_product', ctrlMain.statistics_product);
-
-router.post('/statistics_product', ctrlMain.statistics_product);
+router.get('/statistics_product', statisticsCtrl.statistics_product);
 
 router.get('/statistics_revenue', ctrlMain.statistics_revenue);
 

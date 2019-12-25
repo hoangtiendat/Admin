@@ -3,8 +3,10 @@ const Store = mongoose.model('Store');
 const constant = require('../Utils/constant');
 
 module.exports = {
-    getAllStore(){
-        return Store.find({}).populate("brand").exec();
+    getAllStoreName(){
+        return Store.find({})
+            .select("storeId name")
+            .exec();
     },
     getStoreInPage(page){
         return Store.find({}).populate("brand")

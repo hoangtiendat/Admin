@@ -33,7 +33,7 @@ const store_detail = async (req, res) => {
         products.forEach((product) => {
             product.salePrice = parseInt(product.price) - parseInt(product.discount);
             product.urlImage = product.urlImage.split(constant.urlImageSeperator)[0];
-        })
+        });
         if (storeDetail){
             res.render('shop_detail', {
                 title: 'Người dùng',
