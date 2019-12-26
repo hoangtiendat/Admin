@@ -77,5 +77,17 @@ module.exports = {
     },
     setStatus(userId, isActive){
         return User.findOneAndUpdate({userId: userId}, {isActive: isActive}).exec();
+    },
+    setUserInfo(userId, info){
+        return User.findOneAndUpdate({userId: userId}, {
+            firstName: info.firstName || "",
+            lastName: info.lastName || "",
+            gender: info.gender || "",
+            email: info.email || "",
+            birthDate: info.birthDate || "",
+            phone: info.phone || "",
+            address: info.address || "",
+            city: info.city || "",
+        }).exec();
     }
 };

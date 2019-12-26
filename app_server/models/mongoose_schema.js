@@ -184,3 +184,13 @@ commentSchema.virtual('product',{
 commentSchema.index({coords: '2dsphere'});
 commentSchema.plugin(AutoIncrement, {inc_field: 'commentId'});
 mongoose.model('Comment', commentSchema);
+
+//Param
+const paramSchema = new mongoose.Schema({
+    paramId: Number,
+    category: String,
+    brands: String,
+    city: String
+});
+paramSchema.index({coords: '2dsphere'});
+mongoose.model('Param', paramSchema);

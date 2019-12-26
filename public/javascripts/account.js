@@ -16,7 +16,7 @@
 
     if ($signupForm.length > 0){
         $(document.signupForm.username).focus();
-        $signupForm .validate({
+        $signupForm.validate({
             rules: {
                 username: {
                     required: true

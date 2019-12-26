@@ -61,6 +61,71 @@ $( document ).ready(function() {
         $statusText.css('color', statusMsgColor[isActive]);
     }
 
+    //Edit Profile Validation
+    const $editProfileForm = $(document.edit_profile_form);
+    if ($editProfileForm.length > 0){
+        $(document.edit_profile_form.lastName).focus();
+        $editProfileForm.validate({
+            rules: {
+                firstName: {
+                    required: true
+                },
+                lastName: {
+                    required: true
+                },
+                gender: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    email: true,
+                },
+                birthDate: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    minlength: 10
+                },
+                address: {
+                    required: true,
+                    minlength: 10
+                },
+                city: {
+                    required: true
+                }
+            },
+            messages: {
+                firstName: {
+                    required: "Chưa nhập tên"
+                },
+                lastName: {
+                    required: "Chưa nhập họ"
+                },
+                gender: {
+                    required: "Chưa chọn giới tính"
+                },
+                email: {
+                    required: "Chưa nhập email",
+                    email: "Email phải có dạng abc@xyz.qwe",
+                },
+                birthDate: {
+                    required: "Chưa nhập ngày sinh"
+                },
+                phone: {
+                    required: "Chưa nhập số điện thoại",
+                    minlength: "Số điện thoại phải có tối thiểu 10 số"
+                },
+                address: {
+                    required: "Chưa nhập địa chỉ",
+                    minlength: "Địa chỉ phải có tối thiểu 10 ký tự"
+                },
+                city: {
+                    required: "Chưa nhập tỉnh thành"
+                }
+            }
+        });
+    }
     //Product Upload Image
     const $productDetailId = $('#product-id');
     let productNumOfImages = 0;

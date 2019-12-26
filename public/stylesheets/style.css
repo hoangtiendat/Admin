@@ -2452,6 +2452,7 @@ ul.nav.tabs li a span {
     top: 100%;
 }
 .product-cost h4 {
+    height: 40px;
     font-size: 1.2em;
     color: #fff;
     margin-bottom: 0.5em;
@@ -4859,6 +4860,21 @@ input[type="button"], input[type="submit"] {
     font-size: 0.9em;
     font-style: italic;
     text-decoration: line-through;
+}
+.my-btn-link {
+    padding: 0 !important;
+}
+.my-btn-link a {
+    color: #ffffff;
+    padding: 8px 20px;
+    display: block;
+}
+.my-btn-link a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+label.error {
+    color: #D44638 !important;
 }
 /*Dropzone*/
 .dz-image {

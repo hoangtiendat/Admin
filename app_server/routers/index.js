@@ -16,6 +16,12 @@ require('./passport');
 /* GET home page. */
 router.get('/', ctrlMain.home);
 
+router.get('/profile', userCtrl.profile)
+
+router.get('/edit_profile', userCtrl.editProfilePage);
+
+router.post('/edit_profile', userCtrl.editProfile);
+
 router.get('/statistics_product', statisticsCtrl.statistics_product);
 
 router.get('/statistics_revenue', ctrlMain.statistics_revenue);

@@ -7,7 +7,7 @@ const type = {
 const perPage = 5;
 const paginationMax = 5;
 const currency = "VND";
-const productPerPage = 10
+const productPerPage = 8;
 const urlImageSeperator = ", ";
 const topLimit = 10;
 function getUserType(typeStr){

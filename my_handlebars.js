@@ -88,6 +88,15 @@ hbs.registerHelper("select", function(value, options) {
         })
         .join('\n')
 });
+hbs.registerHelper("check", function(value, options) {
+    return options.fn(this)
+        .split('\n')
+        .map(function(v) {
+            const t = 'value="' + value + '"'
+            return ! RegExp(t).test(v) ? v : v.replace(t, t + ' checked="checked"')
+        })
+        .join('\n')
+});
 const handlebarsHelpers = require('handlebars-helpers');
 const helpers =  handlebarsHelpers();
 // app.helper({'is': helpers.is});
