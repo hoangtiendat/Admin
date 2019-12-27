@@ -19,6 +19,15 @@ module.exports = {
     countBill(){
         return Bill.count().exec();
     },
+    getBill(billId){
+        return Bill.findOne({billId: billId})
+            .populate({
+                path: "billDetail",
+                populate: "product"
+            })
+            .populate("buyer")
+            .exec();
+    },
     addBillDetail(billId, productId, amount){
         const billDetail = new BillDetail({
             billId: billId,

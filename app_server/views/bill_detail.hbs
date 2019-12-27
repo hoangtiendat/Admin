@@ -1,0 +1,78 @@
+<div class="shop-detail-wrapper">
+    <div class="pro-head">
+        <h2>Thông tin chi tiết đơn đặt hàng: Bill ID {{billDetail.billId}}</h2>
+    </div>
+    <div class="shop-info-wrapper">
+        <table class="table table-borderless">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+                <th style="width: 20%;">Tài khoản đặt hàng: </th>
+                <td><a href="{{myAppend "/user_detail/" billDetail.buyer.userId}}"  class="text-success text-"><u>{{billDetail.buyer.username}}</u></a></td>
+                <th style="width: 20%;">Tên người nhận: </th>
+                <td>{{billDetail.receiverName}}</td>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Số điện thoại: </th>
+                <td>{{billDetail.phone}}</td>
+                <th style="width: 20%;">Email: </th>
+                <td>{{billDetail.email}}</td>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Địa chỉ giao hàng: </th>
+                <td style="max-width: 100px; overflow: hidden; text-overflow: ellipsis">{{billDetail.address}}</td>
+                <th style="width: 20%;">Tỉnh thành: </th>
+                <td>{{billDetail.city}}</td>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Tổng tiền: </th>
+                <td style="font-weight: 600; font-size: 1.1em;">{{formatPrice billDetail.totalPrice}}</td>
+                <th style="width: 20%;">Phí giao hàng: </th>
+                <td>{{formatPrice billDetail.shipCharge}}</td>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Mô tả: </th>
+                <td>{{billDetail.description}}</td>
+                <th style="width: 20%;">Tình trạng: </th>
+                <td class="{{getBillStatusClass billDetail.status}}" style="font-weight: 600;">{{billDetail.status}}</td>
+            </tr>
+            <tr>
+                <th style="width: 20%;">Ngày mua:  </th>
+                <td>{{parseDateTime billDetail.purchaseDate "/"}}</td>
+                <th style="width: 20%;">Ngày giao hàng:  </th>
+                <td>
+                    {{#if billDetail.deliveryDate}}
+                        {{parseDateTime billDetail.deliveryDate "/"}}
+                    {{else}}
+                        ...
+                    {{/if}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="pro-head">
+        <h2>Sản phẩm đặt hàng</h2>
+    </div>
+    {{#each billDetailChunks}}
+        <div class="row">
+            {{#each this}}
+                <div class="col-md-3 product-grid">
+                    <div class="product-items">
+                        <span class="product-label label label-danger">Số lượng <span>{{amount}}</span></span>
+                        <div class="project-eff">
+                            <div id="nivo-lightbox-demo"> <p> <a href="/product_detail/{{productId}}" data-lightbox-gallery="gallery1" id="nivo-lightbox-demo"><span class="rollover1"> </span> </a></p></div>
+                            <img style="max-width: 250px; height: 200px;" class="img-responsive" src="{{product.urlImage}}" alt="">
+                        </div>
+                        <div class="product-cost">
+                            <h4 class="product-items-name"><a href="/product_detail/{{product.productId}}">{{product.name}}</a></h4>
+                            <h5>{{formatPrice product.salePrice}} <span class="sale-price">{{formatPrice product.price}}</span></h5>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+    <div class="clearfix"> </div>
+</div>

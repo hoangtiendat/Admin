@@ -20,7 +20,7 @@
             <tbody>
                 {{#each bills}}
                     <tr>
-                        <td class="text-center">{{billId}}</td>
+                        <td class="text-center"><a href="{{myAppend "/bill_detail/" billId}}"  class="text-success"><u>{{billId}}</u></a></td>
                         <td class="text-center">
                             <a href="{{myAppend "/user_detail/" buyer.userId}}"  class="text-success"><u>{{buyer.username}}</u></a>
                         </td>

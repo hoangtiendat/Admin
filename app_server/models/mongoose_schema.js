@@ -130,7 +130,7 @@ billSchema.virtual('billDetail',{
     ref: 'BillDetail',
     localField: 'billId',
     foreignField: 'billId',
-    justOne: true
+    justOne: false
 });
 billSchema.index({coords: '2dsphere'});
 billSchema.plugin(AutoIncrement, {inc_field: 'billId'});

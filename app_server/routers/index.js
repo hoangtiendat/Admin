@@ -37,6 +37,8 @@ router.get('/product_detail/:productId', productCtrl.productDetail);
 
 router.get('/bill', billCtrl.bills);
 
+router.get('/bill_detail/:billId', billCtrl.bill_detail);
+
 router.get('/user/', userCtrl.users);
 
 router.get('/user_detail/:userId', userCtrl.user_detail);

@@ -11,7 +11,7 @@ const bills = async (req, res) => {
             const bills  = await Bill.getBillInPage(page);
             const count = await Bill.countBill();
             res.render('bill', {
-                title: 'Hồ sơ',
+                title: 'Đơn đặt hàng',
                 bills: bills,
                 page: page,
                 pages: Math.ceil(count / constant.perPage),
@@ -21,6 +21,37 @@ const bills = async (req, res) => {
         }
     }
 };
+
+const bill_detail = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        try {
+            const billDetail = await Bill.getBill(req.params.billId);
+            billDetail.billDetail.forEach((detail) => {
+                detail.product.salePrice = parseInt(detail.product.price) - parseInt(detail.product.discount);
+                detail.product.urlImage = detail.product.urlImage.split(constant.urlImageSeperator)[0];
+            });
+            if (billDetail){
+                res.render('bill_detail', {
+                    title: 'Đơn đặt hàng',
+                    billDetail: billDetail,
+                    billDetailChunks: constant.splitToChunk(billDetail.billDetail, 4),
+                });
+            } else {
+                res.render('error', {
+                    title: 'Lỗi tìm kiếm đơn đặt hàng',
+                    message: "Lỗi không tìm thấy đơn đặt hàng"
+                })
+            }
+
+        } catch(err){
+            console.log('err', err);
+        }
+    }
+}
+
 module.exports = {
-    bills
+    bills,
+    bill_detail
 }
