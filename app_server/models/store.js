@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const Brand = mongoose.model('Brand');
 const constant = require('../Utils/constant');
 
 module.exports = {
@@ -19,5 +20,10 @@ module.exports = {
     },
     getStore(storeId){
         return Store.findOne({storeId: storeId}).populate("brand");
+    },
+    async increasePurchaseCount(storeId, value){
+        const store = await Store.findOneAndUpdate({storeId: storeId}, {$inc: {purchaseCount: value}}).exec();
+        await Brand.findOneAndUpdate({brandId: store.brandId}, {$inc: {purchaseCount: value}}).exec();
+        return Promise.resolve();
     }
 };

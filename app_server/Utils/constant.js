@@ -10,6 +10,13 @@ const currency = "VND";
 const productPerPage = 8;
 const urlImageSeperator = ", ";
 const topLimit = 10;
+const defaultShipCharge = 5000;
+const billDefaultStatus = "Chưa giao";
+const billStatus = {
+    waiting: "Chưa giao",
+    onGoing: "Đang giao",
+    complete: "Đã giao"
+};
 function getUserType(typeStr){
     return Object.keys(type).find(key => type[key] === typeStr);
 }
@@ -30,5 +37,8 @@ module.exports = {
     splitToChunk,
     productPerPage,
     urlImageSeperator,
-    topLimit
-}
+    topLimit,
+    defaultShipCharge,
+    billDefaultStatus,
+    billStatus
+};

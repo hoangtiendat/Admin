@@ -101,7 +101,7 @@ const users = async (req, res) => {
             console.log('err', err);
         }
     }
-}
+};
 
 const user_detail = async (req, res) => {
     if (!req.isAuthenticated()){

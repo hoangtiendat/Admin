@@ -7,6 +7,7 @@ const productCtrl = require('../controllers/product');
 const userCtrl = require('../controllers/user');
 const storeCtrl = require('../controllers/store');
 const statisticsCtrl = require('../controllers/statistics');
+const billCtrl = require('../controllers/bill');
 
 const multer = require('multer');
 const inMemoryStorage = multer.memoryStorage();
@@ -34,7 +35,7 @@ router.get('/store_detail/:storeId', storeCtrl.store_detail);
 
 router.get('/product_detail/:productId', productCtrl.productDetail);
 
-router.get('/order', ctrlMain.order);
+router.get('/bill', billCtrl.bills);
 
 router.get('/user/', userCtrl.users);
 

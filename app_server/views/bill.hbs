@@ -1,0 +1,80 @@
+<div class="order-wrapper">
+    <div class="pro-head">
+        <h2>Quản lý đơn đặt hàng</h2>
+    </div>
+    <div class="table-wrapper table-responsive">
+        <table class="table">
+            <thead>
+            <tr class="success text-center">
+                <th scope="col" style="width:5%;" class="text-center">ID</th>
+                <th scope="col" style="width:10%;" class="text-center">TK đặt hàng</th>
+                <th scope="col" style="width:15%;">Người nhận</th>
+                <th scope="col" style="width:10%;">Số Điện thoại</th>
+                <th scope="col" style="width:15%;" class="text-center">Tổng giá tiền (VNĐ)</th>
+                <th scope="col" style="width:15%;" class="text-center">Tỉnh thành</th>
+                <th scope="col" style="width:10%;" class="text-center">Ngày mua</th>
+                <th scope="col" style="width:10%;" class="text-center">Ngày giao</th>
+                <th scope="col" style="width:10%;" class="text-center">Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{#each bills}}
+                    <tr>
+                        <td class="text-center">{{billId}}</td>
+                        <td class="text-center">
+                            <a href="{{myAppend "/user_detail/" buyer.userId}}"  class="text-success"><u>{{buyer.username}}</u></a>
+                        </td>
+                        <td>{{receiverName}}</td>
+                        <td>{{phone}}</td>
+                        <td class="text-center">{{formatPrice totalPrice false}}</td>
+                        <td class="text-center">{{city}}</td>
+                        <td class="text-center">{{parseDate purchaseDate "/"}}</td>
+                        {{#if deliveryDate}}
+                            <td class="text-center">{{parseDate deliveryDate "/"}}</td>
+                        {{else}}
+                            <td class="text-center">...</td>
+                        {{/if}}
+                        <td class="{{getBillStatusClass status}} text-center" style="font-weight: 600;">{{status}}</td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <!--Pagination-->
+    {{#compare pages ">" 0}}
+        <nav class="pagination-wrapper text-center" aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                {{#compare page "===" 1}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/bill?page={{dec page}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+
+                {{{generatePagination "bill" page pages}}}
+
+                {{#compare page "===" pages}}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{else}}
+                    <li class="page-item">
+                        <a class="page-link" href="/bill?page={{inc page}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {{/compare}}
+            </ul>
+        </nav>
+    {{/compare}}
+    <div class="clearfix"> </div>
+</div>

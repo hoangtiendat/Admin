@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
     avatar: String,
     createdDate: Date,
     isActive: Boolean,
+    secretToken: String,
     type: Number
 });
 
@@ -105,7 +106,6 @@ mongoose.model('Product', productSchema);
 //Bill
 const billSchema = new mongoose.Schema({
     buyerId: Number,
-    productId: Number,
     receiverName: String,
     phone: String,
     email: String,
@@ -126,10 +126,10 @@ billSchema.virtual('buyer',{
     foreignField: 'userId',
     justOne: true
 });
-billSchema.virtual('product',{
-    ref: 'Product',
-    localField: 'productId',
-    foreignField: 'productId',
+billSchema.virtual('billDetail',{
+    ref: 'BillDetail',
+    localField: 'billId',
+    foreignField: 'billId',
     justOne: true
 });
 billSchema.index({coords: '2dsphere'});
@@ -157,7 +157,6 @@ billDetailSchema.virtual('product',{
     justOne: true
 });
 billDetailSchema.index({coords: '2dsphere'});
-billDetailSchema.plugin(AutoIncrement, {inc_field: 'billDetailId'});
 mongoose.model('BillDetail', billDetailSchema);
 
 //Comment

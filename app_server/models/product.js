@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Product = mongoose.model('Product');
+const StoreModel = require('./store');
 const constant = require('../Utils/constant');
 const azureBlob = require('./azure_blob');
 
@@ -49,4 +50,9 @@ module.exports = {
   setProductUrlImage(productId, urlImage){
     Product.findOneAndUpdate({productId: productId}, {urlImage: urlImage}).exec();
   },
+  async increasePurchaseCount(productId, value){
+    const product = await Product.findOneAndUpdate({productId: productId}, {$inc: {purchaseCount: value}}).exec();
+    await StoreModel.increasePurchaseCount(product.storeId, value);
+    return Promise.resolve();
+  }
 };
