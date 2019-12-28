@@ -25,9 +25,8 @@ router.post('/edit_profile', userCtrl.editProfile);
 
 router.get('/statistics_product', statisticsCtrl.statistics_product);
 
-router.get('/statistics_revenue', ctrlMain.statistics_revenue);
+router.get('/statistics_revenue', statisticsCtrl.statistics_revenue);
 
-router.post('/statistics_revenue', ctrlMain.statistics_revenue);
 
 router.get('/store/', storeCtrl.stores);
 

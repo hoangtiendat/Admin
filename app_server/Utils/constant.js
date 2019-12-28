@@ -17,6 +17,15 @@ const billStatus = {
     onGoing: "Đang giao",
     complete: "Đã giao"
 };
+const millisecondOfDay = 24 * 60 * 60 * 1000;
+const millisecondOfWeek = millisecondOfDay * 7;
+const chartDay = 10;
+const chartWeekRange = 15;
+const numOfWeekPerYear = 54;
+const numOfMonth = 12;
+const numOfQuarter = 4;
+const monthOfQuarter = 3;
+const chartYearRange = 5;
 function getUserType(typeStr){
     return Object.keys(type).find(key => type[key] === typeStr);
 }
@@ -26,6 +35,9 @@ function splitToChunk(arr, size){
         temp.push(arr.slice(i, i + size));
     }
     return temp;
+}
+function parseDateMonth(date, seperator = "-") {
+    return [("0" + date.getDate()).slice(-2), ("0" + (date.getMonth() + 1)).slice(-2)].join(seperator);
 }
 module.exports = {
     SALT_ROUNDS,
@@ -40,5 +52,15 @@ module.exports = {
     topLimit,
     defaultShipCharge,
     billDefaultStatus,
-    billStatus
+    billStatus,
+    millisecondOfDay,
+    millisecondOfWeek,
+    chartDay,
+    chartWeekRange,
+    numOfWeekPerYear,
+    numOfMonth,
+    numOfQuarter,
+    monthOfQuarter,
+    chartYearRange,
+    parseDateMonth
 };
