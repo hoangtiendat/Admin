@@ -130,10 +130,12 @@ $( document ).ready(function() {
     const $productDetailId = $('#product-id');
     let productNumOfImages = 0;
     let removedImages = [];
+    let imageUrls;
+    let isSent = false;
     $('#product-upload-image').dropzone({
         url: "/product/uploadImage",
         method: "POST",
-        timeout: 5 * 60,
+        timeout: 5 * 60 * 1000,
         uploadMultiple: true,
         paramName:  function(n) { return "images";},
         dictDefaultMessage: "Kéo ảnh sản phẩm vào",
@@ -143,8 +145,8 @@ $( document ).ready(function() {
         autoProcessQueue: false,
         init: function () {
             let myDropzone = this;
-            let urls = $('#product-image-urls').val() || "";
-            urls = urls.split(urlImageSeperator);
+            imageUrls = $('#product-image-urls').val() || "";
+            const urls = imageUrls.split(urlImageSeperator);
             productNumOfImages = urls.length;
             for (let i = 0; i < urls.length; i++){
                 const mockFile = {
@@ -154,7 +156,7 @@ $( document ).ready(function() {
                     status: Dropzone.ADDED,
                     url: urls[i],
                     accepted: true,
-                    index: i + 1
+                    index: urls[i].match(/\d+(?=\D*$)/i)
                 };
                 myDropzone.options.addedfile.call(this, mockFile);
                 myDropzone.options.thumbnail.call(this, mockFile, urls[i]);
@@ -174,9 +176,20 @@ $( document ).ready(function() {
             });
         },
         sending: (file, xhr, formData) => {
-            formData.append("productId", parseInt($productDetailId.val()));
-            formData.append("numOfImages", productNumOfImages);
-            formData.append("removedImages", removedImages.join(urlImageSeperator));
+           if (!isSent){
+               formData.append("productId", parseInt($productDetailId.val()));
+               formData.append("imageUrls", imageUrls);
+               formData.append("removedImages", removedImages.join(urlImageSeperator));
+               formData.append("currentPath", window.location.pathname);
+               isSent = true;
+           }
+        },
+        success: (file, response) => {
+            if (response.success){
+                window.location.href = window.location.href.slice(0, window.location.href.indexOf("/")) + "/product_detail/" + parseInt($productDetailId.val());
+            } else {
+                Alert.error(response.error || "Upload ảnh thất bại !!!");
+            }
         }
     });
     $('#product-upload-image-btn').on('click', (e) => {

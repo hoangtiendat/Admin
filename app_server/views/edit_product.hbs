@@ -1,0 +1,67 @@
+<div class="user-detail-wrapper">
+    <div class="pro-head">
+        <h2>Thay đổi thông tin sản phẩm: Product ID: {{product.productId}}</h2>
+    </div>
+    <div class="user-info-wrapper">
+        <form class="form" action="/edit_product" method="post" name="edit_profile_form">
+            <input type="hidden" name="productId" value="{{product.productId}}"/>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_name">Tên sản phẩm: </label>
+                    <input type="text" class="form-control" id="product_name" name="name" value="{{default product.name ""}}" placeholder="Tên sản phẩm">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_new">Sản phẩm mới: </label>
+                    {{#if product.new}}
+                        <input type="checkbox" class="my-checkbox-form-control" id="product_new" name="new" checked/>
+                    {{else}}
+                        <input type="checkbox" class="my-checkbox-form-control" id="product_new" name="new"/>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_price">Giá gốc: </label>
+                    <input type="number" class="form-control" id="product_price" name="price" value="{{default product.price ""}}" placeholder="Giá gốc sản phẩm">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_discount">Giảm: </label>
+                    <input type="text" class="form-control" id="product_discount" name="discount" value="{{default product.discount ""}}" placeholder="Giảm">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_category">Loại sản phẩm: </label>
+                    <select id="product_store" class="form-control" name="storeId">
+                        {{#select product.categoryId}}
+                            {{#each categories}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_store">Cửa hàng: </label>
+                    <select id="product_store" class="form-control" name="categoryId">
+                        {{#select product.storeId}}
+                            {{#each storeNames}}
+                                <option value="{{storeId}}">{{name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="product_description">Mô tả:</label>
+                    <textarea class="form-control" id="product_description" name="description" rows="9" placeholder="Mô tả sản phẩm">{{default product.description ""}}</textarea>
+                </div>
+            </div>
+            <div class="row text-center">
+                <button type="submit" class="btn btn-success" style="font-size: 1.1em;">Cập nhật</button>
+                <button type="submit" class="btn btn-danger my-btn-link" style="font-size: 1.1em;"><a href="/product_detail/{{product.productId}}">Hủy</a></button>
+            </div>
+        </form>
+    </div>
+    <div class="clearfix"> </div>
+</div>

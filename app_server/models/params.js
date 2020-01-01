@@ -7,5 +7,10 @@ module.exports = {
         return Param.find({paramId: 1}).then((param) => {
             return param[0].city.split(constant.urlImageSeperator);
         });
-    }
+    },
+    getAllCategory(){
+        return Param.find({paramId: 1}).then((param) => {
+            return param[0].category.split(constant.urlImageSeperator);
+        });
+    },
 };

@@ -1,4 +1,7 @@
 const Product = require('../models/product');
+const Store = require('../models/store');
+const Param = require('../models/params');
+const constant = require('../Utils/constant');
 
 const product = (req, res) => {
     if (req.query.category){
@@ -48,37 +51,162 @@ const productSource = async (req, res) => {
 };
 
 const productDetail = async (req, res) => {
-    const product = await Product.getProductById(req.params.productId);
-    product.salePrice = parseInt(product.price) - parseInt(product.discount);
-    if (product){
-        res.render('product_detail', {
-            title: 'Sản phẩm',
-            productDetail: product,
-        });
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
     } else {
-        res.render('error', {
-            title: 'Lỗi tìm kiếm sản phẩm',
-            message: "Lỗi không tìm thấy sản phẩm"
-        })
+        const product = await Product.getProductById(req.params.productId);
+        if (product){
+            product.salePrice = parseInt(product.price) - parseInt(product.discount);
+            product.description = decodeURI(product.description);
+            res.render('product_detail', {
+                title: 'Sản phẩm',
+                productDetail: product,
+                imageUrlChunks: constant.splitToChunk(product.urlImage.split(constant.urlImageSeperator), 4)
+
+            });
+        } else {
+            res.render('error', {
+                title: 'Lỗi tìm kiếm sản phẩm',
+                message: "Lỗi không tìm thấy sản phẩm"
+            })
+        }
     }
 };
-const uploadProductImage = (req, res) => {
-    const productId = req.body.productId;
-    let numOfImages = req.body.numOfImages;
-    const removedImages = req.body.removedImages.split(constant.urlImageSeperator);
-    req.files.forEach(async (file, idx) => {
-        if (removedImages.length > 0){
-            const removedIdx = removedImages.pop();
-            const url = await Product.uploadProductImages(productId, removedIdx, file);
+const uploadProductImage = async (req, res) => {
+    try {
+        const productId = (req.body.productId) ? parseInt(req.body.productId) : -1;
+        const imageUrls = req.body.imageUrls;
+        let imageUrlsArr;
+        //Remove images
+        let removedImages;
+        if (req.body.removedImages) {
+            removedImages = req.body.removedImages.split(constant.urlImageSeperator);
+            const deletes = await Product.deleteProductImages(removedImages.map((removedImage) => {
+                return {
+                    productId: productId,
+                    imageNum: removedImage,
+                    extension: ""
+                };
+            }));
+
+            imageUrlsArr = imageUrls.split(constant.urlImageSeperator).filter((imageUrl) => {
+                return removedImages.filter((removed) => {
+                    return imageUrl.includes(constant.createProductImageName(productId, removed, ""));
+                }).length === 0;
+            });
         } else {
-            const url = await Product.uploadProductImages(productId, ++numOfImages, file);
+            imageUrlsArr = imageUrls.split(constant.urlImageSeperator);
         }
-    })
+
+        for (let i = 0; i < req.files.length; i++){
+            try {
+                const url = await Product.uploadProductImages(productId, req.files[i]);
+                imageUrlsArr.push(url);
+            } catch (err) {
+                res.json({
+                    error: "Upload ảnh thất bại"
+                })
+            }
+        }
+        const setUrlResult = await Product.setProductUrlImage(productId, imageUrlsArr.join(constant.urlImageSeperator));
+        res.json({
+            success: "Upload ảnh thành công"
+        })
+    } catch(err){
+        res.json({
+            error: "Upload ảnh thất bại"
+        })
+    }
 }
+const editProductPage = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        const product = await Product.getProductById(req.params.productId);
+        product.salePrice = parseInt(product.price) - parseInt(product.discount);
+        product.description = decodeURI(product.description);
+        if (product){
+            const storeNames  = await Store.getAllStoreName();
+            const categories = await Param.getAllCategory();
+            res.render('edit_product', {
+                title: 'Sản phẩm',
+                product: product,
+                storeNames: storeNames,
+                categories: categories
+            });
+        } else {
+            res.render('error', {
+                title: 'Lỗi tìm kiếm sản phẩm',
+                message: "Lỗi không tìm thấy sản phẩm"
+            })
+        }
+    }
+};
+const editProduct = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        try {
+            const productId = (req.body.productId)? parseInt(req.body.productId) : -1;
+            const info = {
+                name: req.body.name || "",
+                new: req.body.new === "on",
+                price: (req.body.price)? parseInt(req.body.price) : 0,
+                discount: (req.body.discount)? parseInt(req.body.discount) : 0,
+                categoryId: (req.body.categoryId)? parseInt(req.body.categoryId) : 1,
+                storeId: (req.body.storeId)? parseInt(req.body.storeId) : 1,
+                description: encodeURI(req.body.description) || "",
+            };
+            const product = await Product.setProductInfo(productId, info);
+            if (product) {
+                res.redirect('/product_detail/' + productId);
+            } else {
+                res.redirect('/edit_product/' + productId);
+            }
+        } catch(err) {
+            console.log('err', err);
+        }
+    }
+};
+const editProductImagePage = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        const product = await Product.getProductById(req.params.productId);
+        if (product){
+            product.salePrice = parseInt(product.price) - parseInt(product.discount);
+            product.description = decodeURI(product.description);
+            res.render('edit_product_image', {
+                title: 'Sản phẩm',
+                product: product,
+            });
+        } else {
+            res.render('error', {
+                title: 'Lỗi tìm kiếm sản phẩm',
+                message: "Lỗi không tìm thấy sản phẩm"
+            })
+        }
+    }
+};
+const editProductImage = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        try {
+
+        } catch(err) {
+            console.log('err', err);
+        }
+    }
+};
 module.exports = {
     product,
     productCategory,
     productSource,
     productDetail,
-    uploadProductImage
+    uploadProductImage,
+    editProductPage,
+    editProduct,
+    editProductImagePage,
+    editProductImage
 }

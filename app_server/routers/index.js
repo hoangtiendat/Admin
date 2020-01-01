@@ -27,12 +27,19 @@ router.get('/statistics_product', statisticsCtrl.statistics_product);
 
 router.get('/statistics_revenue', statisticsCtrl.statistics_revenue);
 
-
 router.get('/store/', storeCtrl.stores);
 
 router.get('/store_detail/:storeId', storeCtrl.store_detail);
 
 router.get('/product_detail/:productId', productCtrl.productDetail);
+
+router.get('/edit_product/:productId', productCtrl.editProductPage);
+
+router.get('/edit_product_image/:productId', productCtrl.editProductImagePage);
+
+router.post('/edit_product', productCtrl.editProduct);
+
+router.post('/edit_product_image', productCtrl.editProductImage);
 
 router.get('/bill', billCtrl.bills);
 

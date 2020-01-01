@@ -43,13 +43,35 @@ module.exports = {
         .limit(limit)
         .exec();
   },
-  async uploadProductImages(productId, imageNum, image){
+  async uploadProductImages(productId, image){
     const extension = image.originalname.slice(image.originalname.lastIndexOf('.'));
-    const imageName = "product_" + productId+ "_image_" + imageNum + extension;
-    return await azureBlob.uploadImage(image, imageName);
+    return await azureBlob.uploadImage(productId, image, extension);
+  },
+  async deleteProductImages(productImages){
+    const imageNames = productImages.map((productImage) => {
+      return constant.createProductImageName(productImage.productId, productImage.imageNum, productImage.extension || "");
+    });
+    const results =  await azureBlob.deleteImages(imageNames);
+    let errors = [];
+    results.forEach((result, index) => {
+      if (result.errorCode)
+        errors.push(index);
+    });
+    return errors;
   },
   setProductUrlImage(productId, urlImage){
     Product.findOneAndUpdate({productId: productId}, {urlImage: urlImage}).exec();
+  },
+  setProductInfo(productId, info){
+    return Product.findOneAndUpdate({productId: productId}, {
+      name: info.name || "",
+      new: info.new || false,
+      price: (info.price)? parseInt(info.price) : 0,
+      discount: (info.discount)? parseInt(info.discount) : 0,
+      categoryId: (info.categoryId)? parseInt(info.categoryId) : 1,
+      storeId: (info.storeId)? parseInt(info.storeId) : 1,
+      description: info.description || "",
+    }).exec();
   },
   async increasePurchaseCount(productId, value){
     const product = await Product.findOneAndUpdate({productId: productId}, {$inc: {purchaseCount: value}}).exec();

@@ -1,8 +1,13 @@
 <div class="shop-detail-wrapper">
-    <input id="product-id" type="hidden" value="{{productDetail.productId}}"/>
-    <input id="product-image-urls" type="hidden" value="{{productDetail.urlImage}}"/>
     <div class="pro-head">
-        <h2>{{productDetail.name}}</h2>
+        {{#if productDetail.new}}
+            <span class="new-label label label-danger">New </span>
+        {{/if}}
+        <h2>{{productDetail.name}} &nbsp;&nbsp;
+            <button class="btn btn-default edit-btn">
+                <a href="/edit_product/{{productDetail.productId}}" class="glyphicon glyphicon-pencil "></a>
+            </button>
+        </h2>
     </div>
     <div class="product-info-wrapper">
         <table class="table table-borderless">
@@ -27,17 +32,32 @@
                 <th style="width: 15%;">Số lượt mua: </th>
                 <td>{{productDetail.purchaseCount}}</td>
             </tr>
+            <tr>
+                <th style="width: 15%;">Mô tả: </th>
+                <td colspan="4">{{productDetail.description}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
     <div class="pro-head">
-        <h2>Ảnh sản phẩm</h2>
-        <form id="product-upload-image" class="dropzone" enctype="multipart/form-data">
-            <div class="fallback">
-                <input name="images" type="file" multiple />
-            </div>
-        </form>
-        <button id="product-upload-image-btn" type="button" class="btn btn-success">Upload</button>
+        <h2>Ảnh sản phẩm &nbsp;
+            <button class="btn btn-default edit-btn">
+                <a href="/edit_product_image/{{productDetail.productId}}" class="glyphicon glyphicon-pencil "></a>
+            </button>
+        </h2>
     </div>
+    {{#each imageUrlChunks}}
+        <div class="row">
+            {{#each this}}
+                <div class="col-md-3 product-grid">
+                    <div class="product-items">
+                        <div class="project-eff">
+                            <img style="max-width: 250px; height: 200px;" class="img-responsive" src="{{this}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
     <div class="clearfix"> </div>
 </div>

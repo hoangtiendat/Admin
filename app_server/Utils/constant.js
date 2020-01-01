@@ -39,6 +39,9 @@ function splitToChunk(arr, size){
 function parseDateMonth(date, seperator = "-") {
     return [("0" + date.getDate()).slice(-2), ("0" + (date.getMonth() + 1)).slice(-2)].join(seperator);
 }
+function createProductImageName(productId, num, extension){
+    return `product_${productId}_image_${num}${extension}`;
+}
 module.exports = {
     SALT_ROUNDS,
     type,
@@ -62,5 +65,6 @@ module.exports = {
     numOfQuarter,
     monthOfQuarter,
     chartYearRange,
-    parseDateMonth
+    parseDateMonth,
+    createProductImageName
 };

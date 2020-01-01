@@ -1,0 +1,17 @@
+<div class="shop-detail-wrapper">
+    <input id="product-id" type="hidden" value="{{product.productId}}"/>
+    <input id="product-image-urls" type="hidden" value="{{product.urlImage}}"/>
+    <div class="pro-head">
+        <h2>Ảnh sản phẩm</h2>
+        <form id="product-upload-image" class="dropzone" enctype="multipart/form-data">
+            <div class="fallback">
+                <input name="images" type="file" multiple />
+            </div>
+        </form>
+        <div class="text-center">
+            <button id="product-upload-image-btn" type="button" class="btn btn-success upload-btn">Upload</button>
+            <button type="button" class="btn btn-danger cancel-btn"><a href="/product_detail/{{product.productId}}">Hủy</a></button>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
