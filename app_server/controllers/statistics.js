@@ -16,7 +16,7 @@ const statistics_product = async (req, res) => {
                 product.urlImage = product.urlImage.split(constant.urlImageSeperator)[0];
             });
             res.render('statistics_product', {
-                 title: 'Thống kê',
+                 title: 'Thống kê sản phẩm',
                 storeId: storeId,
                 storeNames: storeNames,
                 store: store,
@@ -66,7 +66,7 @@ const statistics_revenue = async (req, res) => {
                 return '"' + (startYear + index) + '"';
             });
             res.render('statistics_revenue', {
-                title: 'Thống kê',
+                title: 'Thống kê doanh số',
                 statisticsByDay: statisticsByDay,
                 statisticsByDayLabels: statisticsByDayLabels,
                 statisticsByWeek: statisticsByWeek[0],

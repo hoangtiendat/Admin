@@ -4,6 +4,7 @@ $( document ).ready(function() {
     const statusMsg = ["Khóa", "Hoạt động"];
     const statusMsgColor = ["#D44638", "#3c763d"];
     const urlImageSeperator = ", ";
+    const $imageUploadError = $('#image-upload-error');
     $('.set-status-btn').on('click', async (e) => {
         const $this = $(e.target);
         const userId = $this.attr('data-userId');
@@ -127,6 +128,69 @@ $( document ).ready(function() {
         });
     }
     //Product Upload Image
+    const $editProductForm = $(document.edit_product_form);
+    if ($editProductForm.length > 0){
+        $(document.edit_product_form.name).focus();
+        $editProductForm.validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                price: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                discount: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                storeId: {
+                    required: true
+                },
+                categoryId: {
+                    required: true
+                },
+                description: {
+                    required: true,
+                    maxlength: 3000
+                },
+                city: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Chưa nhập tên"
+                },
+                price: {
+                    required: "Chưa nhập giá gốc",
+                    number: "Giá gốc phải có dạng số",
+                    min: "Giá gốc phải lớn hơn 0"
+                },
+                discount: {
+                    required: "Chưa nhập giả giảm",
+                    number: "Giá giảm phải có dạng số",
+                    min: "Giá giảm phải lớn hơn 0"
+                },
+                storeId: {
+                    required: "Chưa chọn cửa hàng",
+                },
+                categoryId: {
+                    required: "Chưa chọn loại sản phẩm",
+                },
+                description: {
+                    required: "Chưa nhập mô tả sản phẩm",
+                    maxlength: "Mô tả sản phẩm chỉ có tối đa 3000 ký tự",
+                },
+                city: {
+                    required: "Chưa chọn tỉnh thành"
+                }
+            }
+        });
+    }
+
     const $productDetailId = $('#product-id');
     let productNumOfImages = 0;
     let removedImages = [];
@@ -196,5 +260,123 @@ $( document ).ready(function() {
         e.preventDefault();
         const dropzone = Dropzone.forElement('#product-upload-image');
         dropzone.processQueue();
-    })
+    });
+
+    const $addProductForm = $(document.add_product_form);
+    if ($addProductForm.length > 0){
+        $(document.add_product_form.name).focus();
+        $addProductForm.validate({
+            rules: {
+                name: {
+                    required: true
+                },
+                price: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                discount: {
+                    required: true,
+                    number: true,
+                    min: 0
+                },
+                storeId: {
+                    required: true
+                },
+                categoryId: {
+                    required: true
+                },
+                description: {
+                    required: true,
+                    maxlength: 3000
+                },
+                city: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Chưa nhập tên"
+                },
+                price: {
+                    required: "Chưa nhập giá gốc",
+                    number: "Giá gốc phải có dạng số",
+                    min: "Giá gốc phải lớn hơn 0"
+                },
+                discount: {
+                    required: "Chưa nhập giả giảm",
+                    number: "Giá giảm phải có dạng số",
+                    min: "Giá giảm phải lớn hơn 0"
+                },
+                storeId: {
+                    required: "Chưa chọn cửa hàng",
+                },
+                categoryId: {
+                    required: "Chưa chọn loại sản phẩm",
+                },
+                description: {
+                    required: "Chưa nhập mô tả sản phẩm",
+                    maxlength: "Mô tả sản phẩm chỉ có tối đa 3000 ký tự",
+                },
+                city: {
+                    required: "Chưa chọn tỉnh thành"
+                }
+            }
+        });
+    }
+
+    $('#add-product-upload-image').dropzone({
+        url: "/add_product",
+        method: "POST",
+        timeout: 5 * 60 * 1000,
+        uploadMultiple: true,
+        paramName:  function(n) { return "images";},
+        dictDefaultMessage: "Kéo ảnh sản phẩm vào",
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        dictRemoveFile: "Xóa",
+        autoProcessQueue: false,
+        sending: (file, xhr, formData) => {
+            if (!isSent){
+                formData.append("storeId", parseInt($(document.add_product_form.storeId).val()));
+                formData.append("name", $(document.add_product_form.name).val());
+                formData.append("new", $(document.add_product_form.new).is(":checked"));
+                formData.append("price", Number($(document.add_product_form.price).val()));
+                formData.append("discount", Number($(document.add_product_form.discount).val()));
+                formData.append("categoryId", parseInt($(document.add_product_form.categoryId).val()));
+                formData.append("description", $(document.add_product_form.description).val());
+                isSent = true;
+            }
+        },
+        success: (file, response) => {
+            if (response.productId){
+                window.location.href = window.location.href.slice(0, window.location.href.indexOf("/")) + "/product_detail/" + response.productId;
+            } else {
+                Alert.error(response.error || "Thêm sản phẩm thất bại !!!");
+            }
+        }
+    });
+
+    $('#add-product-btn').on('click', (e) => {
+        e.preventDefault();
+        let flag1 = false;
+        const dropzone = Dropzone.forElement('#add-product-upload-image');
+        if (dropzone.files.length > 0) {
+            flag1 = true;
+            showUploadImageError(false);
+        } else {
+            flag1 = false;
+            showUploadImageError(true);
+        }
+        if ($addProductForm.valid() && flag1) {
+            dropzone.processQueue();
+        };
+    });
+    function showUploadImageError(flag) {
+        if (flag) {
+            $imageUploadError.css('display', 'block');
+        } else {
+            $imageUploadError.hide();
+        }
+    }
 });

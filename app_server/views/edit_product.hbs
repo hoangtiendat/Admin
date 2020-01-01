@@ -3,7 +3,7 @@
         <h2>Thay đổi thông tin sản phẩm: Product ID: {{product.productId}}</h2>
     </div>
     <div class="user-info-wrapper">
-        <form class="form" action="/edit_product" method="post" name="edit_profile_form">
+        <form id=editProductForm" class="form" action="/edit_product" method="post" name="edit_product_form">
             <input type="hidden" name="productId" value="{{product.productId}}"/>
             <div class="row">
                 <div class="form-group col-md-6">
@@ -32,17 +32,17 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label for="product_category">Loại sản phẩm: </label>
-                    <select id="product_store" class="form-control" name="storeId">
+                    <select id="product_store" class="form-control" name="categoryId">
                         {{#select product.categoryId}}
                             {{#each categories}}
-                                <option value="{{this}}">{{this}}</option>
+                                <option value="{{categoryId}}">{{categoryName}}</option>
                             {{/each}}
                         {{/select}}
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="product_store">Cửa hàng: </label>
-                    <select id="product_store" class="form-control" name="categoryId">
+                    <select id="product_store" class="form-control" name="storeId">
                         {{#select product.storeId}}
                             {{#each storeNames}}
                                 <option value="{{storeId}}">{{name}}</option>

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Param = mongoose.model('Param');
+const Category = mongoose.model('Category');
 const constant = require('../Utils/constant');
 
 module.exports = {
@@ -9,8 +10,6 @@ module.exports = {
         });
     },
     getAllCategory(){
-        return Param.find({paramId: 1}).then((param) => {
-            return param[0].category.split(constant.urlImageSeperator);
-        });
+        return Category.find({}).exec();
     },
 };

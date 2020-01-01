@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
-const Product = mongoose.model('Product');
+const User = require("../models/user");
+const Product = require("../models/product");
+const Store = require("../models/store");
 const passport = require('passport');
 
 
-const home = (req, res) => {
-	if (req.user != null) { 
+const home = async (req, res) => {
+	if (req.user != null) {
+		const countCustomer = await User.countCustomer();
+		const countProduct = await Product.countProduct();
+		const countStore = await Store.countStore();
 		res.render('index', {
-			title: 'Trang chủ',
+			title: 'Shoppy',
+			countCustomer: countCustomer,
+			countProduct: countProduct,
+			countStore: countStore
 		});
 	} else {
 		res.redirect('/login');

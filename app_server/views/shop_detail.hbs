@@ -29,7 +29,11 @@
         </table>
     </div>
     <div class="pro-head">
-        <h2>Sản phẩm</h2>
+        <h2>Sản phẩm &nbsp;
+            <button class="btn btn-default edit-btn">
+                <a href="/add_product/{{storeDetail.storeId}}" class="glyphicon glyphicon-plus "></a>
+            </button>
+        </h2>
     </div>
     {{#each productChunks}}
         <div class="row">

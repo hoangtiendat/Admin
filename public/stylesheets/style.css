@@ -222,6 +222,10 @@ a:hover {
    top: 20px;
    left: 170px;
 }
+#logo {
+    width: 80%;
+    height: 50%;
+}
 .sidebar-icon {
     position: relative;
     float: left;
@@ -4918,6 +4922,9 @@ input[type=checkbox].my-checkbox-form-control {
 .new-label {
     padding: 5px 10px;
     margin: 10px;
+}
+#add-product-upload-image {
+    margin-bottom: 15px
 }
 /*Modals Style*/
 .modal-content {

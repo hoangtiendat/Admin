@@ -91,7 +91,7 @@ const users = async (req, res) => {
             const users  = await User.getUserInPage(req.user.type, req.user.userId, page);
             const count = await User.countUser(req.user.type, req.user.userId);
             res.render('user', {
-                title: 'Hồ sơ',
+                title: 'Người dùng',
                 users: users,
                 page: page,
                 pages: Math.ceil(count / constant.perPage),
@@ -111,7 +111,7 @@ const user_detail = async (req, res) => {
             const userDetail = await User.getUser(req.params.userId);
             if (userDetail){
                 res.render('user_detail', {
-                    title: 'Người dùng',
+                    title: userDetail.username,
                     userDetail: Object.assign({}, userDetail._doc, {
                         status: userDetail.isActive,
                         type: Object.keys(constant.type).find(key => constant.type[key] === userDetail.type ),

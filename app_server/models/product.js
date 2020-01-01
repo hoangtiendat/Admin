@@ -6,6 +6,9 @@ const constant = require('../Utils/constant');
 const azureBlob = require('./azure_blob');
 
 module.exports = {
+  countProduct(){
+    return Product.count({}).exec();
+  },
   getProductById(id){
     return Product.findOne({"productId": id})
         .populate({
@@ -72,6 +75,22 @@ module.exports = {
       storeId: (info.storeId)? parseInt(info.storeId) : 1,
       description: info.description || "",
     }).exec();
+  },
+  addProduct(info){
+   const product = new Product({
+     new: info.new || false,
+     name: info.name || "",
+     urlImage: info.urlImage || "",
+     imageUploadBy: info.imageUploadBy || 1,
+     discount: info.discount || 0,
+     price: info.price || 0,
+     storeId:   info.storeId || 0,
+     categoryId:  info.categoryId || 0,
+     description:  info.description || "",
+     purchaseCount: 0,
+     createdDate: Date.now()
+   });
+   return product.save();
   },
   async increasePurchaseCount(productId, value){
     const product = await Product.findOneAndUpdate({productId: productId}, {$inc: {purchaseCount: value}}).exec();

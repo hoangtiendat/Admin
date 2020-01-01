@@ -34,7 +34,7 @@ const bill_detail = async (req, res) => {
             });
             if (billDetail){
                 res.render('bill_detail', {
-                    title: 'Đơn đặt hàng',
+                    title: 'Đơn đặt hàng ' + billDetail.billId,
                     billDetail: billDetail,
                     billDetailChunks: constant.splitToChunk(billDetail.billDetail, 4),
                 });

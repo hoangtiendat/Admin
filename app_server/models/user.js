@@ -89,5 +89,8 @@ module.exports = {
             address: info.address || "",
             city: info.city || "",
         }).exec();
-    }
+    },
+    countCustomer(){
+        return User.count({type: constant.type.customer}).exec();
+    },
 };

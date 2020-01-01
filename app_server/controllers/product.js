@@ -59,7 +59,7 @@ const productDetail = async (req, res) => {
             product.salePrice = parseInt(product.price) - parseInt(product.discount);
             product.description = decodeURI(product.description);
             res.render('product_detail', {
-                title: 'Sản phẩm',
+                title: product  .name,
                 productDetail: product,
                 imageUrlChunks: constant.splitToChunk(product.urlImage.split(constant.urlImageSeperator), 4)
 
@@ -129,7 +129,7 @@ const editProductPage = async (req, res) => {
             const storeNames  = await Store.getAllStoreName();
             const categories = await Param.getAllCategory();
             res.render('edit_product', {
-                title: 'Sản phẩm',
+                title: product.name,
                 product: product,
                 storeNames: storeNames,
                 categories: categories
@@ -177,7 +177,7 @@ const editProductImagePage = async (req, res) => {
             product.salePrice = parseInt(product.price) - parseInt(product.discount);
             product.description = decodeURI(product.description);
             res.render('edit_product_image', {
-                title: 'Sản phẩm',
+                title: product.name,
                 product: product,
             });
         } else {
@@ -188,14 +188,63 @@ const editProductImagePage = async (req, res) => {
         }
     }
 };
-const editProductImage = async (req, res) => {
+const addProductPage = async (req, res) => {
     if (!req.isAuthenticated()){
         res.redirect('/login');
     } else {
         try {
-
+            const storeId = (req.params.storeId)? parseInt(req.params.storeId) : -1;
+            const store  = await Store.getStore(storeId);
+            const categories = await Param.getAllCategory();
+            res.render('add_product', {
+                title: 'Thêm sản phẩm ' + store.name,
+                product: product,
+                store: store,
+                categories: categories
+            });
+        } catch(err){
+            console.log(err);
+        }
+    }
+};
+const addProduct = async (req, res) => {
+    if (!req.isAuthenticated()){
+        res.redirect('/login');
+    } else {
+        try {
+            const info = {
+                new: req.body.new === "true" || false,
+                name: req.body.name || "",
+                imageUploadBy: parseInt(req.user.userId) || 1,
+                discount: Number(req.body.discount) || 0,
+                price: Number(req.body.price) || 0,
+                storeId:   parseInt(req.body.storeId) || 0,
+                categoryId:  parseInt(req.body.categoryId) || 0,
+                description:  req.body.description || "",
+            };
+            const product = await Product.addProduct(info);
+            let imageUrlsArr = [];
+            if (product.productId){
+                for (let i = 0; i < req.files.length; i++){
+                    try {
+                        const url = await Product.uploadProductImages(product.productId, req.files[i]);
+                        imageUrlsArr.push(url);
+                    } catch (err) {
+                        res.json({
+                            error: "Upload ảnh thất bại"
+                        })
+                    }
+                }
+                const setUrlResult = await Product.setProductUrlImage(product.productId, imageUrlsArr.join(constant.urlImageSeperator));
+                res.json({
+                    productId: product.productId,
+                })
+            }
         } catch(err) {
             console.log('err', err);
+            res.json({
+                error: "Upload ảnh thất bại"
+            })
         }
     }
 };
@@ -208,5 +257,6 @@ module.exports = {
     editProductPage,
     editProduct,
     editProductImagePage,
-    editProductImage
+    addProductPage,
+    addProduct
 }

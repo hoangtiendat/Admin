@@ -36,7 +36,7 @@ const store_detail = async (req, res) => {
         });
         if (storeDetail){
             res.render('shop_detail', {
-                title: 'Người dùng',
+                title: storeDetail.name,
                 storeDetail: storeDetail,
                 productChunks: constant.splitToChunk(products, 4),
                 page: page,

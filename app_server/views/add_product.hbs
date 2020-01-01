@@ -1,0 +1,66 @@
+<div class="user-detail-wrapper">
+    <div class="pro-head">
+        <h2>Thêm sản phẩm</h2>
+    </div>
+    <div class="user-info-wrapper">
+        <form class="form" action="/edit_product" method="post" name="add_product_form">
+            <input type="hidden" name="storeId" value="{{store.storeId}}"/>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_name">Tên sản phẩm: </label>
+                    <input type="text" class="form-control" id="product_name" name="name" value="" placeholder="Tên sản phẩm">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_new">Sản phẩm mới: </label>
+                    <input type="checkbox" class="my-checkbox-form-control" id="product_new" name="new"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_price">Giá gốc: </label>
+                    <input type="number" class="form-control" id="product_price" name="price" value="" placeholder="Giá gốc sản phẩm">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_discount">Giảm: </label>
+                    <input type="text" class="form-control" id="product_discount" name="discount" value="" placeholder="Giảm">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="product_category">Loại sản phẩm: </label>
+                    <select id="product_store" class="form-control" name="categoryId">
+                        {{#each categories}}
+                            <option value="{{categoryId}}">{{categoryName}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="product_store">Cửa hàng: </label>
+                    <select id="product_store" class="form-control" name="storeId" disabled>
+                        <option value="{{store.storeId}}">{{store.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="product_description">Mô tả:</label>
+                    <textarea class="form-control" id="product_description" name="description" rows="9" placeholder="Mô tả sản phẩm"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="pro-head">
+        <h2>Ảnh sản phẩm</h2>
+        <form id="add-product-upload-image" class="dropzone" enctype="multipart/form-data">
+            <div class="fallback">
+                <input name="images" type="file" multiple />
+            </div>
+        </form>
+        <label id="image-upload-error" class="error" for="image-upload" style="display:none">Chưa chọn hình ảnh</label>
+        <div class="row text-center">
+            <button id="add-product-btn" type="submit" class="btn btn-success" style="font-size: 1.2em;">Thêm</button>
+            <button type="submit" class="btn btn-danger my-btn-link" style="font-size: 1.1em;"><a href="/store_detail/{{store.storeId}}">Hủy</a></button>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>

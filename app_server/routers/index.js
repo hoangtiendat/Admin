@@ -37,9 +37,13 @@ router.get('/edit_product/:productId', productCtrl.editProductPage);
 
 router.get('/edit_product_image/:productId', productCtrl.editProductImagePage);
 
+router.get('/add_product/:storeId', productCtrl.addProductPage);
+
 router.post('/edit_product', productCtrl.editProduct);
 
-router.post('/edit_product_image', productCtrl.editProductImage);
+router.post('/edit_product_image', productCtrl.addProduct);
+
+router.post('/add_product',  upload.array('images'), productCtrl.addProduct);
 
 router.get('/bill', billCtrl.bills);
 
