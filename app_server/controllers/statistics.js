@@ -1,5 +1,5 @@
-const Store = require('../models/Store');
-const Product = require('../models/Product');
+const Store = require('../models/store');
+const Product = require('../models/product');
 const constant = require('../Utils/constant');
 
 const statistics_product = async (req, res) => {
