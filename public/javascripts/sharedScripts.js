@@ -250,7 +250,7 @@ $( document ).ready(function() {
         },
         success: (file, response) => {
             if (response.success){
-                window.location.href = window.location.href.slice(0, window.location.href.indexOf("/")) + "/product_detail/" + parseInt($productDetailId.val());
+                window.location.href = "/product_detail/" + parseInt($productDetailId.val());
             } else {
                 Alert.error(response.error || "Upload ảnh thất bại !!!");
             }
@@ -350,7 +350,7 @@ $( document ).ready(function() {
         },
         success: (file, response) => {
             if (response.productId){
-                window.location.href = window.location.href.slice(0, window.location.href.indexOf("/")) + "/product_detail/" + response.productId;
+                window.location.href = "/product_detail/" + response.productId;
             } else {
                 Alert.error(response.error || "Thêm sản phẩm thất bại !!!");
             }

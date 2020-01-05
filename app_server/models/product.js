@@ -174,11 +174,18 @@ module.exports = {
         const startWeek = (currentWeek - (weekRange - 1) + constant.numOfWeekPerYear - 1) % (constant.numOfWeekPerYear - 1);
         let result = Array(weekRange).fill(0);
         for (let statistic of statistics) {
-          result[statistic._id - startWeek] = statistic.purchaseCount;
+          result[(statistic._id - startWeek + constant.numOfWeekPerYear) % (constant.numOfWeekPerYear - 1)] = statistic.purchaseCount;
         }
         let weeks = [];
-        for (let i = startWeek; i <= currentWeek; i++)
-          weeks.push(i);
+        if (startWeek <= currentWeek){
+          for (let i = startWeek; i <= currentWeek; i++)
+            weeks.push(i);
+        } else {
+          for (let i = startWeek; i < constant.numOfWeekPerYear; i++)
+            weeks.push(i);
+          for (let i = 0; i <= currentWeek; i++)
+            weeks.push(i);
+        }
         resolve([result, weeks]);
       });
     })

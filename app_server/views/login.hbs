@@ -32,10 +32,11 @@
                     </div>
                     <div class="modal-body">
                         <form name="loginForm" action="/login" method="post">
-                            {{#if signup_success_message}}
-                                <div id="signup_success_message" class="alert alert-success alert-message" role="alert">
-                                    {{signup_success_message}}
-                                </div>
+                            {{#if success_messages }}
+                                <div class="alert alert-success">{{success_messages}}</div>
+                            {{/if}}
+                            {{#if error_messages }}
+                                <div class="alert alert-danger">{{error_messages}}</div>
                             {{/if}}
                             
                             <div class="form-group">

@@ -62,7 +62,10 @@ router.get('/login', accountCtrl.loginPage);
 router.post('/login', function(req, res, next){
     passport.authenticate('local', (err, user, info) => {
         if (err) { return next(err); }
-        if (!user) { return res.redirect('/login') }
+        if (!user) {
+            req.flash('error', info.message);
+            res.redirect('/login');
+            return; }
         req.logIn(user, (err) => {
             if (err) { return next(err); }
             return res.redirect('/');

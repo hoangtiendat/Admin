@@ -1,9 +1,12 @@
 const User = require('../models/user');
+const constant = require('../Utils/constant');
 
 const loginPage = (req, res) => {
     res.render('login', {
         title: 'Đăng nhập',
         layout: false ,
+        error_messages: req.flash('error'),
+        success_messages: req.flash('success')
     });
 }
 const login = (req, res) => {
@@ -16,10 +19,15 @@ const logout = (req, res) => {
     res.redirect('/login');
 }
 const signupPage = (req, res) => {
-    res.render('signup', {
-        title: 'Thêm Admin',
-        layout: false ,
-    });
+    if (req.user && req.user.type === constant.type.superAdmin){
+        res.render('signup', {
+            title: 'Thêm Admin',
+            layout: false ,
+        });
+    } else {
+        res.redirect("/");
+    }
+
 }
 const signup =  async (req, res) => {
     let user = await User.checkUsername(req.body.username);
@@ -27,7 +35,7 @@ const signup =  async (req, res) => {
         res.render('signup', {
             title: 'Thêm Admin',
             layout: false,
-            error_message: "Tên đăng nhập đã tồn tại !!!"
+            error_message: req.flash('error'),
         });
     } else {
         const result = await User.addUser(req.body.username, req.body.email, req.body.password);
@@ -46,7 +54,7 @@ const signup =  async (req, res) => {
             });
         }
     }
-}
+};
 module.exports = {
     loginPage,
     login,

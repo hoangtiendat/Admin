@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // var helpers = require('handlebars-helpers');
+const flash = require('connect-flash');
 const expressSession = require('express-session');
 const passport = require('passport');
 require('dotenv').config();
@@ -37,6 +38,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(flash());
+
 app.use(function(req, res, next) {
   //Authentication
   if (req.isAuthenticated()){
@@ -66,6 +69,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {
+    layout: false,
+    title: "404 Not Found",
+    message: "Lỗi trang"
+  });
 });
 module.exports = app;
