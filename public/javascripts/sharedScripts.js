@@ -22,6 +22,24 @@ $( document ).ready(function() {
                 }
             })
     })
+    $('.set-status-bill-btn').on('click', async (e) => {
+        const $this = $(e.target);
+        const billId = $this.attr('data-billId');
+        const status = $this.attr('data-status');
+
+        Alert.warning("Bạn có muốn chuyển qua trạng thái " + status)
+            .then(async (result) => {
+                if (result.value){
+                    const result = await setBillStatusDB(billId, status);
+                    if (result.isSuccess){
+                        Alert.success(" Đổi trạng thái thành công !!!");
+                        setBillStatusBtnStyle($this, billId, status);
+                    } else {
+                        Alert.error(" Đổi trạng thái thất bại !!!");
+                    }
+                }
+            })
+    })
     function setUserStatusDB(userId, isActive){
         showLoading();
         return new Promise((resolve, reject) => {
@@ -46,6 +64,32 @@ $( document ).ready(function() {
             })
         })
     }
+
+    function setBillStatusDB(billId, status){
+        showLoading();
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "/bill/setStatus",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    billId: billId,
+                    status: status
+                },
+                success: (result) => {
+                    resolve(result);
+                },
+                error: (err) => {
+                    reject(err);
+                },
+                complete: () => {
+                    hideLoading();
+                }
+
+            })
+        })
+    }
+
     function setStatusBtnStyle($button, userId, isActive){
         if (isActive){
             $button.removeClass("btn-success");
@@ -60,6 +104,33 @@ $( document ).ready(function() {
         const $statusText = $(`.status-text[data-userId=${userId}]`);
         $statusText.text(statusMsg[isActive]);
         $statusText.css('color', statusMsgColor[isActive]);
+    }
+
+    function setBillStatusBtnStyle($button, billId, status){
+        const $statusText = $(`.status-text[data-billId=${billId}]`);
+        $statusText.text(status);
+        if (status === "Đang giao"){
+            $button.removeClass("btn-warning");
+            $button.addClass("btn-success");
+            $button.text("Đã giao");
+            $button.attr("data-status", "Đã giao");
+            $statusText.removeClass("text-danger");
+            $statusText.addClass("text-warning");
+        } else if (status === "Đã giao"){
+            $button.addClass("btn-danger");
+            $button.removeClass("btn-success");
+            $button.text("Chưa giao");
+            $button.attr("data-status", "Chưa giao");
+            $statusText.removeClass("text-warning");
+            $statusText.addClass("text-success");
+        } else {
+            $button.removeClass("btn-danger");
+            $button.addClass("btn-warning");
+            $button.text("Đang giao");
+            $button.attr("data-status", "Đang giao");
+            $statusText.removeClass("text-success");
+            $statusText.addClass("text-danger");
+        }
     }
 
     //Edit Profile Validation

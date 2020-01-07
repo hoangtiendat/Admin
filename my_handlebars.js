@@ -54,11 +54,27 @@ hbs.registerHelper("getStatusBlockMsg", function(status) {
     else
         return "Mở khóa";
 });
+hbs.registerHelper("getStatusBlockMsgBill", function(status) {
+    if (status == "Chưa giao")
+        return "Đang giao";
+    else if (status == "Đang giao")
+        return "Đã giao";
+    else
+        return "Chưa giao"
+});
 hbs.registerHelper("getStatusBlockBtnClass", function(status) {
     if (status)
         return "btn-danger";
     else
         return "btn-success";
+});
+hbs.registerHelper("getStatusBlockBtnClassBill", function(status) {
+    if (status == "Chưa giao")
+        return "btn-primary";
+    else if (status == "Đang giao")
+        return "btn-success";
+    else
+        return "btn-danger"
 });
 hbs.registerHelper("generatePagination", function(route, page, count) {
     let pageStr = "";

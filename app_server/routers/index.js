@@ -55,6 +55,8 @@ router.get('/user_detail/:userId', userCtrl.user_detail);
 
 router.post('/user/setStatus', userCtrl.setStatus);
 
+router.post('/bill/setStatus', billCtrl.setStatus);
+
 router.post('/product/uploadImage', upload.array('images'), productCtrl.uploadProductImage);
 
 /* GET Login page. */

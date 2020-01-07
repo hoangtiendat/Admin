@@ -51,7 +51,30 @@ const bill_detail = async (req, res) => {
     }
 }
 
+const setStatus = async (req, res) => {
+    if (req.isAuthenticated() && req.user.type === constant.type["superAdmin"]){
+        try {
+            const result = await Bill.setStatus(parseInt(req.body.billId), req.body.status );
+            res.json({
+                isSuccess: true
+            })
+
+        } catch(err){
+            console.log('err', err);
+            res.json({
+                isSuccess: false
+            })
+        }
+    } else {
+        res.json({
+            isSuccess: false
+        })
+    }
+
+}
+
 module.exports = {
     bills,
-    bill_detail
+    bill_detail,
+    setStatus
 }

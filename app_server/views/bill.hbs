@@ -15,6 +15,7 @@
                 <th scope="col" style="width:10%;" class="text-center">Ngày mua</th>
                 <th scope="col" style="width:10%;" class="text-center">Ngày giao</th>
                 <th scope="col" style="width:10%;" class="text-center">Trạng thái</th>
+                <th scope="col" style="width:10%;" class="text-center">Chuyển</th>
             </tr>
             </thead>
             <tbody>
@@ -34,7 +35,8 @@
                         {{else}}
                             <td class="text-center">...</td>
                         {{/if}}
-                        <td class="{{getBillStatusClass status}} text-center" style="font-weight: 600;">{{status}}</td>
+                        <td data-billId="{{billId}}" class="{{getBillStatusClass status}} text-center status-text" style="font-weight: 600;">{{status}}</td>
+                        <td><button type="button" data-billId="{{billId}}" data-status="{{getStatusBlockMsgBill status}}" class="set-status-bill-btn btn {{getStatusBlockBtnClassBill status}}">{{getStatusBlockMsgBill status}}</button></td>
                     </tr>
                 {{/each}}
             </tbody>
